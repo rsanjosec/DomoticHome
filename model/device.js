@@ -1,8 +1,7 @@
-/*
-Define un eschema de tipo device para una base de adtos mongo
-
-*/
-
+/**
+ * Define un eschema de tipo device para una base de datos mongo
+ */
+    
 'use strict'
 
 const mongoose = require('mongoose');
@@ -17,7 +16,7 @@ const DeviceSchema = schema({
     device_type: {type: String, enum:['arduino', 'esp32']},
 
 })
-//para exportar este modelo, utilizamos el método model de mogoose
+//para exportar este modelo, utilizamos el método model de mongoose
 //(nombre_del_esquema, var_esquema )
 module.exports = mongoose.model('Device', DeviceSchema);
 
