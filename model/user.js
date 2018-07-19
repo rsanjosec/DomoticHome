@@ -7,9 +7,10 @@ const schema = mongoose.Schema;
 const bcrypt = require('bcrypt-nodejs')
 
 const UserSchema = ({
+
     email:{type:String, unique:true, lowercase:true},
-    nombre: String,
-    apellidos: String,
+    name: String,
+    surname: String,
     // select:false no retorna la password en una consulta
     password : {type:String, select:false },
     dateRegister: {type:Date, default:Date.now()},
