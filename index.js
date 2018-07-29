@@ -3,8 +3,8 @@
  * Entada de la aplaicación
 */
 
-const app = require('./app')
 const mongoose = require("mongoose")
+const app = require('./app')
 const Fecha = require("./utils/util")
 const cf = require("./config/config")
 const cf_color = require("./config/console_colors")
@@ -21,8 +21,10 @@ mongodb://Ip_base_de_datos/puerto/nombre_de_la_base_datos
 (err, res), función de callback que recibe dos parámetros: un error(si se produce) y una repuesta de confirmación
 
 */
-
-
+app.on('listening',function(){
+    console.log('ok, server is running');
+});
+console.log("antes de utilizar listen");
 app.listen(cf.web_server_port, function(){
     console.log("----------------------------------------");
     var fecha = new Fecha();
