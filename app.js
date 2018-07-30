@@ -1,14 +1,22 @@
 'use strict'
-
 const express = require('express');
-const app = express();
+//motor de plantilllas express-handlebars
+const exphbs = require('express-handlebars');
+
 //analiza ficheros de tipo json recibidos en el body del mensaje y análisisi de formularios
 const bodyParser = require('body-parser');
+//rutas absolutas y concatenación
+const path = require('path');
 // permite la subida de ficheros y reconocimiento de formularios
 // https://github.com/expressjs/multer
-const multer = require("multer");
+//const multer = require("multer");
 
-const rtApi = require('./router')
+
+
+const app = express();
+
+
+const rtApi = require('./router');
 
 
 /*
@@ -23,12 +31,63 @@ Se debe de utilizar bien para el envío de ficheros o bien para envio de carcter
 
 
 //importación del controlado de un dispositivo
-const DeviceController = require('./controllers/device_controller')
+//const DeviceController = require('./controllers/device_controller')
 //importación de los colores de consola
 //const ConsoleColors = require('./config/console_colors');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+//para los ficheros estáticos
+app.use(express.static(path.join(__dirname, 'public')));
+console.log("__dirname");
+console.log(__dirname);
+
+app.engine('hbs', exphbs({
+    extname: '.hbs', 
+    defaultLayout: 'default', 
+    layoutsDir: __dirname + '/views/layouts',
+    partialsDir  : [
+        //  path to your partials
+        __dirname + '/views/partials',
+    ]
+}));
+app.set('view engine', 'hbs');
+
+
+//llamada a el login de la web app
+
+app.get('/', (req, res) => {
+  var data =   {
+        title: 'Página principal',
+        "employees": [
+            {"firstName": "John", "lastName": "Doe"},
+            {"firstName": "Anna", "lastName": "Smith"},
+            {"firstName": "Peter", "lastName": "Jones"}
+        ]
+    }
+    
+     res.render('login', data);
+});
+
+
+
+// app.get('/', (req, res) => {
+//     var user = {
+//         first: 'Brian',
+//         last: 'Mancini',
+//         site: 'http://derpturkey.com',
+//         age: 32
+//       };    
+//     res.render('index',user)
+// })
+
+
+app.get('/prueba', (req, res) => {
+    res.render('prueba')
+})
+
+
 app.use('/api', rtApi);
 
 module.exports = app;
