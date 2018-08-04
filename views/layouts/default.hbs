@@ -1,10 +1,16 @@
 <!DOCTYPE html>
 <html>
-    {{>head}}
+{{>head}}
+
 <body>
-
-    {{{body}}}
-
+    {{>subNav}}
+    <div class="container-fluid">
+        <div class="row">
+            {{>menu}}
+            {{{body}}}
+        </div>
+    </div>
+    {{>footer}}
 </body>
-</body>
+
 </html>
