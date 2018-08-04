@@ -1,3 +1,7 @@
-
-Todo:
-  ☐ Item
+Proyectos:
+  DomoticHome:
+   ✔ Integra bootstrap 4 @done(18-08-05 01:34)
+  ☐ crear un menú para el dashboard para multidispositivo
+  ☐ crear agente mqtt 
+  ☐ con mosquito(cliente) realizar un bucle para alimentar el subcriptor
+  ☐ configurar base de datos mongo(password)
