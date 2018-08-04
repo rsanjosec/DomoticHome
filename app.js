@@ -57,30 +57,35 @@ app.set('view engine', 'hbs');
 
 //llamada a el login de la web app
 
-app.get('/', (req, res) => {
-  var data =   {
-        title: 'Página principal',
-        "employees": [
-            {"firstName": "John", "lastName": "Doe"},
-            {"firstName": "Anna", "lastName": "Smith"},
-            {"firstName": "Peter", "lastName": "Jones"}
-        ]
-    }
-    
-     res.render('login', data);
-});
-
-
-
 // app.get('/', (req, res) => {
-//     var user = {
-//         first: 'Brian',
-//         last: 'Mancini',
-//         site: 'http://derpturkey.com',
-//         age: 32
-//       };    
-//     res.render('index',user)
-// })
+//   var data =   {
+//         title: 'Página principal',
+//         "employees": [
+//             {"firstName": "John", "lastName": "Doe"},
+//             {"firstName": "Anna", "lastName": "Smith"},
+//             {"firstName": "Peter", "lastName": "Jones"}
+//         ]
+//     }
+    
+//      res.render('login', data);
+// });
+
+
+app.get('/', (req, res) => {
+    var data =   {
+          title: 'Dashboard',
+          "employees": [
+              {"firstName": "John", "lastName": "Doe"},
+              {"firstName": "Anna", "lastName": "Smith"},
+              {"firstName": "Peter", "lastName": "Jones"}
+          ]
+      }
+      
+       res.render('home', data);
+  });
+  
+  
+
 
 
 app.get('/prueba', (req, res) => {
