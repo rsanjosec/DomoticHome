@@ -1,16 +1,61 @@
-'use strict'
-let mqtt = require('mqtt')
-let client = mqtt.connect('mqtt://test.mosquitto.org')
+var mqtt = require('mqtt')
+//var client = mqtt.connect({ port: 1883, host: 'localhost', keepalive: 10});
+var client = mqtt.connect({ port: 1993, host: 'localhost'});
+//# conexion enviando usuario y password
+// var client  = mqtt.connect('mqtt://127.0.0.1:1883', {
+//     username: 'login',
+//     password: 'pass'
+// });
+
+//client.subscribe('medicion/consumo')
+//client.publish('medicion/consumo', 'blblblbllsss')
+// client.on('message', function (topic, message) {
+//   console.log(message)
+// })
+// client.end()
+
+// var deviceRoot = "medicion/consumo/"; //deviceroot is topic name given in arduino code 
+// client.subscribe(deviceRoot+"+"); //subscribing to the topic name
+// client=mqtt.connect({ host: 'localhost', port: 1883 });
+var contador=0;
 
 client.on('connect', function () {
-    const msg0 = {id:"axc1234", value:0.8234};
-    const msg1 = "Hola mundo";
-    client.subscribe('DomoticHome')
-    client.publish('DomoticHome', msg0)
-})
-
+  client.subscribe('medicion/consumo')
+  //client.subscribe('temperatura/topic')
+});
+ 
 client.on('message', function (topic, message) {
-    // message is Buffer
-    console.log(message.toString())
-    client.end()
-})
+  // message is Buffer 
+  if(topic == 'medicion/consumo') {
+   contador += contador; 
+   console.log(message.toString());
+  } else {
+  console.log(message.toString());
+  }
+  //client.end();  
+});
+
+
+client.on('error', function(error) {
+  console.log('mqtt error: ' + error);
+  client.end(); 
+});
+
+client.on('close', function() {
+  console.log('mqtt closed');
+   
+});
+
+client.on('offline', function() {
+  console.log('offline');
+ 
+});
+
+client.on('reconnect', function() {
+  console.log('reconnect');
+});
+
+
+module.exports.init = function () {
+  console.log('valor de contador'+contador);
+};
