@@ -2,6 +2,9 @@ Proyectos:
   DomoticHome:
    ✔ Integra bootstrap 4 @done(18-08-05 01:34)
   ☐ crear un menú para el dashboard para multidispositivo
-  ☐ crear agente mqtt 
+  ✔ crear agente mqtt @done(18-08-08 17:04)
+  ☐ securizar la conexión del broker mosquito con ssl
+    https://www.manolodominguez.com/2017/02/05/instalando-un-broker-mqtt-domestico-ii/
   ☐ con mosquito(cliente) realizar un bucle para alimentar el subcriptor
+
   ☐ configurar base de datos mongo(password)
