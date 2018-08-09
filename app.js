@@ -31,7 +31,7 @@ Se debe de utilizar bien para el envío de ficheros o bien para envio de carcter
 
 
 //importación del controlado de un dispositivo
-//const DeviceController = require('./controllers/device_controller')
+//const DeviceController = require('./controllers/device')
 //importación de los colores de consola
 //const ConsoleColors = require('./config/console_colors');
 

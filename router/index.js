@@ -4,7 +4,7 @@
  */
 const express = require('express');
 const router = express.Router();
-const DeviceController = require('../controllers/device_controller');
+const DeviceController = require('../controllers/device');
 const UserControler = require('../controllers/user');
 const auth = require("../middlewares/auth");
 
