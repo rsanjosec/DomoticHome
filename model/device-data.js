@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 
 const DeviceDataSchema= new Schema({
     device_name: String,
-    value: Number,   
+   // val: Number,   
     createdAt: { type: Date, default: Date.now }
 });
 

@@ -1,6 +1,10 @@
-var mqtt = require('mqtt')
+const DeviceData = require('../model/device-data');
+var mqtt = require('mqtt');
 //var client = mqtt.connect({ port: 1883, host: 'localhost', keepalive: 10});
-var client = mqtt.connect({ port: 1993, host: 'localhost'});
+var client = mqtt.connect({ port: 1993, host: 'localhost' });
+
+const DeviceDataController = require('../controllers/device-data');
+
 //# conexion enviando usuario y password
 // var client  = mqtt.connect('mqtt://127.0.0.1:1883', {
 //     username: 'login',
@@ -17,45 +21,75 @@ var client = mqtt.connect({ port: 1993, host: 'localhost'});
 // var deviceRoot = "medicion/consumo/"; //deviceroot is topic name given in arduino code 
 // client.subscribe(deviceRoot+"+"); //subscribing to the topic name
 // client=mqtt.connect({ host: 'localhost', port: 1883 });
-var contador=0;
+var contador = 0;
 
 client.on('connect', function () {
-  client.subscribe('medicion/consumo')
+  console.log("A la escucha de nuevos mensajes");
+  client.subscribe('medicion/consumo');
   //client.subscribe('temperatura/topic')
 });
- 
+
 client.on('message', function (topic, message) {
   // message is Buffer 
-  if(topic == 'medicion/consumo') {
-   contador += contador; 
-   console.log(message.toString());
+  console.log("Enta un nuevo mensaje");
+  
+  if (topic == 'medicion/consumo') {
+
+    DeviceDataController.insertDeviceDataTres(message);
+   // client.end();
+
+
+
+
+    // //contador += 1;
+    // console.log(message.toString());
+    // var myMessage = message.toString();
+    // var obj = JSON.parse(myMessage);
+    // // DeviceDataController.insertDeviceDataDos(obj);     
+    // let device = new DeviceData();
+    // let device_name = "A_aa_bb";
+    // let val = 0.789;
+    // console.log("a111 ");
+    // device.save((err, device) => {
+    //   console.log("222: ");
+    //   //en caso de error se muestra un mensaje
+    //   console.log("entra dentro de device data");
+
+    //   if (err) { console.log("Se ha producido un error"); console.log(err); }
+    //   console.log(cf_color.FgMagenta + '%s' + cf_color.Reset, " Se inserta el registro ");
+    //   console.log(deviceStored);
+    // });
+
+
+
+
   } else {
-  console.log(message.toString());
+    console.log(message.toString());
   }
   //client.end();  
 });
 
 
-client.on('error', function(error) {
+client.on('error', function (error) {
   console.log('mqtt error: ' + error);
-  client.end(); 
+  client.end();
 });
 
-client.on('close', function() {
+client.on('close', function () {
   console.log('mqtt closed');
-   
+
 });
 
-client.on('offline', function() {
+client.on('offline', function () {
   console.log('offline');
- 
+
 });
 
-client.on('reconnect', function() {
+client.on('reconnect', function () {
   console.log('reconnect');
 });
 
 
-module.exports.init = function () {
-  console.log('valor de contador'+contador);
+module.exports.getContador = function () {
+  console.log('valor de contador: ' + contador);
 };
