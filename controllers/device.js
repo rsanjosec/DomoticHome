@@ -31,25 +31,8 @@ function getDevice(req, res) {
 Retorna todos los dispositivos por solicitud get(el listado de dispositivos)
 */
 
+
 function getDevices(req, res) {
-
-    console.log("PINTA baseUrl");
-    console.dir(req.baseUrl);
-    var baseUrl =  req.baseUrl;
-    Device.find({}, (err, devices) => {
-       
-
-            console.log("Entra en retornar todos los dispositivos.(api)");
-            if (err) { return res.status(500).send({ message: `Error al realizar la petición: ${error}` }); }
-            if (!devices) { return res.status(404).send({ message: 'Actualmente no existen dispositivos dados de alta.' }); }
-            //console.dir(devices);
-            res.status(200).send({ devices });
-       
-
-      
-    });
-}
-function getDevicesDos(req, res) {
 
     console.log("PINTA baseUrl");
     console.dir(req.baseUrl);

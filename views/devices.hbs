@@ -1,7 +1,6 @@
-
 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1>página de dispositivos</h1>
+        <h1>Listado de dispositivos</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
             <div class="btn-group mr-2">
                 <button class="btn btn-sm btn-outline-secondary">Share</button>
@@ -13,9 +12,39 @@
             </button>
         </div>
     </div>
-    <div>
+    <div>  
 
-       <p>datos</p>
+        <table id="tbDevices" class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nombre del dispositivo</th>
+                    <th scope="col">Mac Adress</th>
+                    <th scope="col">Ubicación</th>
+                    <th scope="col">Descripción</th>
+                    <th scope="col">Tipo de dispositivo</th>
+                    <th scope="col">Acción</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each devices}}
+                <tr>
+                    <th scope="row" td>{{@index}}</th>
+                    <td>{{device_name}}</td>
+                    <td>{{mac_address}}</td>
+                    <td>{{place}}</td>
+                    <td>{{description}}</td>
+                    <td>{{device_type}}</td>
+                    <td>
+                        <button id="btn_edit_{{@index}}" type="button" class="btn btn-primary btn-sm btnEdit">  <span data-feather="edit-2"></span> Editar</button>
+                        <button id="btn_delete_{{@index}}" type="button" class="btn btn-danger btn-sm btnDelete"> <span data-feather="trash"></span> Borrar</button>
+                    </td>
+                </tr>
+                {{/each}}
+
+            </tbody>
+        </table>
     </div>
-    
+
 </main>
+
