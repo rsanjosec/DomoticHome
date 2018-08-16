@@ -5,6 +5,16 @@ Proyectos:
   ✔ crear agente mqtt @done(18-08-08 17:04)
   ☐ securizar la conexión del broker mosquito con ssl
     https://www.manolodominguez.com/2017/02/05/instalando-un-broker-mqtt-domestico-ii/
-  ☐ con mosquito(cliente) realizar un bucle para alimentar el subcriptor
 
+  ☐ con mosquito(cliente) realizar un bucle para alimentar el subcriptor
+  ☐ Panel de administración
+    ☐ panel de administracion - usuarios
+      ✔ implementar la visualización de dispositivos botones de alta, borrar , editar @done(18-08-17 01:07)
+      ☐ implementar la lógica de añadir, editar y borrar
+    ☐ panel de administracion - dispositivos
+      ☐ implementar la visualización de dispositivos botones de alta, borrar , editar
+      ☐ implementar la lógica de añadir, editar y borrar
+    ☐ panel de administracion - estadísticas
+      ☐ implementar la visualización de dispositivos botones de alta, borrar , editar
+      ☐ implementar la lógica de añadir, editar y borrar    
   ☐ configurar base de datos mongo(password)
