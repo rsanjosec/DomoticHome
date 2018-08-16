@@ -34,7 +34,7 @@ app.listen(cf.web_server_port, function(){
     // localhost host/ip donde esta alojada la base de adtos
     // 27017 puerto con el que se establece la conexion contra la base de datos.
     // devices nombre de la base de datos
-     mongoose.connect(cf.db_conection, (err, res)=>{
+     mongoose.connect(cf.db_conection,{ useNewUrlParser: true }, (err, res)=>{
          if(err){
              console.log("Se ha producido un error al conectar con la basde de datos");        
              throw err;

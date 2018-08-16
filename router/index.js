@@ -4,7 +4,8 @@
  */
 const express = require('express');
 const router = express.Router();
-const DeviceController = require('../controllers/device_controller');
+const DeviceController = require('../controllers/device');
+const DeviceDataController = require('../controllers/device-data');
 const UserControler = require('../controllers/user');
 const auth = require("../middlewares/auth");
 
@@ -28,6 +29,12 @@ router.put("/device/:device_id", DeviceController.updateDevice);
 router.delete("/device/:device_id", DeviceController.deleteDevice);
 // añade un dispositivo
 router.post('/device', DeviceController.insertDevice);
+
+//inserta datos de un dispositivo
+router.post('/device-data', DeviceDataController.insertDeviceData);
+
+
+
 //acceso a las rutas privadas
 router.post("/register", UserControler.register);
 router.post("/login", UserControler.login);

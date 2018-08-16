@@ -11,14 +11,8 @@ const path = require('path');
 // https://github.com/expressjs/multer
 //const multer = require("multer");
 
-
-
 const app = express();
-
-
 const rtApi = require('./router');
-
-
 /*
 1.application/x-www-form-urlencoding
 Para el envío de formularios de texto, se puede utilizar este método de envio, de echo por defecto este el el método de envío
@@ -28,20 +22,19 @@ Se debe de utilizar bien para el envío de ficheros o bien para envio de carcter
 */
 
 
-
-
 //importación del controlado de un dispositivo
-//const DeviceController = require('./controllers/device_controller')
+//const DeviceController = require('./controllers/device')
 //importación de los colores de consola
 //const ConsoleColors = require('./config/console_colors');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-//para los ficheros estáticos
+//ruta para los ficheros estáticos "public"
 app.use(express.static(path.join(__dirname, 'public')));
 console.log("__dirname");
 console.log(__dirname);
+
 
 app.engine('hbs', exphbs({
     extname: '.hbs', 
@@ -83,14 +76,11 @@ app.get('/', (req, res) => {
       
        res.render('home', data);
   });
-  
-  
-
-
+ 
 
 app.get('/prueba', (req, res) => {
     res.render('prueba')
-})
+});
 
 
 app.use('/api', rtApi);
