@@ -28,18 +28,46 @@ function getDevice(req, res) {
     });
 }
 /*
-Retorna todos los dispositivos por solicitud get
+Retorna todos los dispositivos por solicitud get(el listado de dispositivos)
 */
+
+
 function getDevices(req, res) {
 
+    console.log("PINTA baseUrl");
+    console.dir(req.baseUrl);
+    var baseUrl =  req.baseUrl;
     Device.find({}, (err, devices) => {
-        console.log("Entra en retornar todos los dispositivos.")
-        if (err) { return res.status(500).send({ message: `Error al realizar la petición: ${error}` }); }
-        if (!devices) { return res.status(404).send({ message: 'No existen dispositivos' }); }
-        //console.dir(devices);
-        res.status(200).send({ devices });
+       
+
+        if(baseUrl=="/admon"){
+            console.log("Entra en retornar todos los dispositivos.(admon)");
+            if (err) { return res.status(500).send({ message: `Error al realizar la petición: ${error}` }); }
+            if (!devices) { return res.status(404).send({ message: 'Actualmente no existen dispositivos dados de alta.' }); }
+            //console.dir(devices);
+            //res.status(200).render( { devices });
+            
+          console.dir(devices);
+            
+            var data =   {
+                title: 'Dashboard',
+                devices: devices
+            }
+            res.render('devices', data);
+            
+        }
+        if(baseUrl=="/api"){
+            console.log("Entra en retornar todos los dispositivos.(api)");
+            if (err) { return res.status(500).send({ message: `Error al realizar la petición: ${error}` }); }
+            if (!devices) { return res.status(404).send({ message: 'Actualmente no existen dispositivos dados de alta.' }); }
+            //console.dir(devices);
+            res.status(200).send({ devices });
+        }
+
+      
     });
 }
+
 //actualiza valor del dispositivo[id_disp, valor]
 function updateDevice(req, res) {
     console.log("Entra por actualizacion");

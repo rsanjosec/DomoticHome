@@ -18,5 +18,5 @@ const DeviceSchema = schema({
 })
 //para exportar este modelo, utilizamos el método model de mongoose
 //(nombre_del_esquema, var_esquema )
-module.exports = mongoose.model('Dispositivos', DeviceSchema);
+module.exports = mongoose.model('Devices', DeviceSchema);
 
