@@ -12,7 +12,10 @@ const path = require('path');
 //const multer = require("multer");
 
 const app = express();
-const rtApi = require('./router');
+//rutas para la api
+const rtApi = require('./router/api');
+//rutas para las páginas de administración de la web app
+const rtAdm = require('./router/admon');
 /*
 1.application/x-www-form-urlencoding
 Para el envío de formularios de texto, se puede utilizar este método de envio, de echo por defecto este el el método de envío
@@ -48,41 +51,10 @@ app.engine('hbs', exphbs({
 app.set('view engine', 'hbs');
 
 
-//llamada a el login de la web app
-
-// app.get('/', (req, res) => {
-//   var data =   {
-//         title: 'Página principal',
-//         "employees": [
-//             {"firstName": "John", "lastName": "Doe"},
-//             {"firstName": "Anna", "lastName": "Smith"},
-//             {"firstName": "Peter", "lastName": "Jones"}
-//         ]
-//     }
-    
-//      res.render('login', data);
-// });
-
-
-app.get('/', (req, res) => {
-    var data =   {
-          title: 'Dashboard',
-          "employees": [
-              {"firstName": "John", "lastName": "Doe"},
-              {"firstName": "Anna", "lastName": "Smith"},
-              {"firstName": "Peter", "lastName": "Jones"}
-          ]
-      }
-      
-       res.render('home', data);
-  });
  
-
-app.get('/prueba', (req, res) => {
-    res.render('prueba')
-});
 
 
 app.use('/api', rtApi);
+app.use('/admon', rtAdm);
 
 module.exports = app;
