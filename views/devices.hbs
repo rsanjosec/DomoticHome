@@ -12,8 +12,16 @@
             </button>
         </div>
     </div>
-    <div>  
-
+  
+    <div id="contData" >
+        <div id="contResult" >
+            <div class="row">
+                <div class="col">Resultado de la operación:   </div>
+                <div id="btn-up-down" class="col text-right"><span data-feather="arrow-down-circle"></span>  <span data-feather="arrow-up-circle"></span></div>     
+            </div>
+            <div id="contResultText" class="row"></div>                 
+        </div>
+      
         <table id="tbDevices" class="table">
             <thead class="thead-dark">
                 <tr>
@@ -29,15 +37,23 @@
             <tbody>
                 {{#each devices}}
                 <tr>
-                    <th scope="row" td>{{@index}}</th>
-                    <td>{{device_name}}</td>
-                    <td>{{mac_address}}</td>
-                    <td>{{place}}</td>
-                    <td>{{description}}</td>
-                    <td>{{device_type}}</td>
+                    <th scope="row">
+                        <input disabled="disabled" type="text" name="row" id="row_{{@index}}" value="{{_id}}" style="display:none" >{{@index}}
+                    </th>
+                    <td data-field="device_name">{{device_name}} </td>
+                    <td data-field="mac_address">{{mac_address}}</td>
+                    <td data-field="place">{{place}}</td>
+                    <td data-field="description">{{description}}</td>
+                    <td data-field="device_type">{{device_type}}</td>
                     <td>
-                        <button id="btn_edit_{{@index}}" type="button" class="btn btn-primary btn-sm btnEdit">  <span data-feather="edit-2"></span> Editar</button>
-                        <button id="btn_delete_{{@index}}" type="button" class="btn btn-danger btn-sm btnDelete"> <span data-feather="trash"></span> Borrar</button>
+                        <button id="btn_delete_{{@index}}" type="button" class="btn btn-danger btn-sm btnDelete">
+                            <span data-feather="trash"></span>
+                            <span>Borrar</span>
+                        </button>
+                        <button id="btn_edit_{{@index}}" type="button" class="btn btn-primary btn-sm btnEdit"> <span data-feather="edit"></span>
+                            <span>Editar</span>
+                        </button>
+
                     </td>
                 </tr>
                 {{/each}}
@@ -46,5 +62,5 @@
         </table>
     </div>
 
-</main>
 
+</main>

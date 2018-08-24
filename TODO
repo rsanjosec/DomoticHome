@@ -12,9 +12,9 @@ Proyectos:
       ✔ implementar la visualización de dispositivos botones de alta, borrar , editar @done(18-08-17 01:07)
       ☐ implementar la lógica de añadir, editar y borrar
     ☐ panel de administracion - dispositivos
-      ☐ implementar la visualización de dispositivos botones de alta, borrar , editar
+      ✔ implementar la visualización de dispositivos botones de alta, borrar , editar @done(18-08-23 18:28)
       ☐ implementar la lógica de añadir, editar y borrar
-    ☐ panel de administracion - estadísticas
+    ☐ panel de administracion - estadísticas    
       ☐ implementar la visualización de dispositivos botones de alta, borrar , editar
       ☐ implementar la lógica de añadir, editar y borrar    
   ☐ configurar base de datos mongo(password)

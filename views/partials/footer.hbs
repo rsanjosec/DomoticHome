@@ -6,50 +6,200 @@
 <script>window.jQuery || document.write('<script src="/javascript/jquery.min.js"><\/script>')</script>
 <script src="/javascript/popper.js"></script>
 <script src="/javascript/bootstrap.min.js"></script>
-
+<!-- Edit table -->
+<script src="/javascript/table-edits.js"></script>
 <!-- Icons -->
 <script src="/javascript/feather.min.js"></script>
 <script>
     feather.replace()
 </script>
 
+
+<script src="/javascript/popper.js"></script>
+
 <!-- Graphs -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
 <script>
     var ctx = document.getElementById("myChart");
-    if(ctx){
-    var myChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-            datasets: [{
-                data: [15339, 21345, 18483, 24003, 23489, 24092, 12034],
-                lineTension: 0,
-                backgroundColor: 'transparent',
-                borderColor: '#007bff',
-                borderWidth: 4,
-                pointBackgroundColor: '#007bff'
-            }]
-        },
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: false
-                    }
+    if (ctx) {
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+                datasets: [{
+                    data: [15339, 21345, 18483, 24003, 23489, 24092, 12034],
+                    lineTension: 0,
+                    backgroundColor: 'transparent',
+                    borderColor: '#007bff',
+                    borderWidth: 4,
+                    pointBackgroundColor: '#007bff'
                 }]
             },
-            legend: {
-                display: false,
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: false
+                        }
+                    }]
+                },
+                legend: {
+                    display: false,
+                }
             }
-        }
-    });
+        });
     }
 </script>
 <script>
-//alert("ss");
-$("#tbDevices").on('click', '.btnDelete', function () {
-    console.log("borrado eleemnto");
-    $(this).closest('tr').remove();
-});   
+
+
+
+
+    $(".btnDelete").on("click", function (vals) {
+
+
+        //retorna el tr sobre el botón en el que se ha pulsado    
+        let _this = $(this).parents().eq(1).css("background-color", "yellow");
+
+        let idElemIni = $(this).attr("id");
+        let posIni = idElemIni.lastIndexOf("_");
+        let idElemFin = idElemIni.substring(posIni + 1, idElemIni.length);
+        console.log(idElemFin);
+        let strInput = "row_" + idElemFin;
+        strInput = "row_1"
+        console.log(strInput);
+        let idElem = $('#' + strInput).attr("value");
+        console.log(idElem);
+        //se muestra la ventana modal
+        $('#exampleModalCenter').modal('show');
+
+        $("#exampleModalCenter").on('click', '.btnDeleteConfirm', function () {
+            console.log("pulsada la confirmación de borrado");
+            const uri = "/api/device/" + idElem;
+
+            $.ajax({
+                url: uri,
+                method: "DELETE"
+            })
+                .done(function (data, textStatus, jqXHR) {
+
+                    $("#contResult").slideToggle(900, function () {
+                        $("#contResultText").text("<p>registro borrado con exito</p>");
+                    });
+
+                    console.log("data:" + data.message);
+                    console.log("textStatus:" + textStatus);
+                    console.log("jqXHR:" + jqXHR);
+                })
+                .fail(function (jqXHR, textStatus, errorThrown) {
+
+                    $("#contResult").slideToggle(900, function () {
+                        $("#contResultText").css("backgroundcolor", "red")
+                        $("#contResultText").text("<p>FALLO AL GUARDAR EL REGISTRO</p><p>" + textStatus + "</p>");
+                    });
+                    console.log("FALLO AL GUARDAR EL REGISTRO");
+                    console.log(jqXHR);
+                    console.log(textStatus);
+                    console.log(errorThrown);
+                });
+
+
+
+            //cierra la ventana modal
+            $('#exampleModalCenter').modal('hide');
+            //detectar el cierre de la ventana modal
+            $('#exampleModalCenter').on('hidden.bs.modal', function (e) {
+                console.log("la ventana se ha cerrado");
+
+                //si el retorno de borrado del servidor es correcto, se borra el elemento
+                $(_this).closest('tr').fadeOut("fast", function () {
+                    $(_this).closest('tr').remove();
+                });
+
+            });
+
+        });
+
+
+
+    });
+
+
+    console.log(location.pathname.substr(1).split("/")[1]);
+
+    //para la EDICIÓN en la tabla sobre un elemento
+    var objValuesOld = {};
+    var objValuesNew = {};
+    $("table tr").editable({
+        dblclick: false,
+        buttonSelector: ".btnEdit",
+        edit: function (values) {
+            values["_id"] = $("input:disabled", this).val();
+            objValuesOld = values;
+            console.log(values);
+            console.log("pulsado la opcion de editar");
+            $(".btnEdit svg", this).replaceWith(feather.icons.save.toSvg());
+            $(".btnEdit span:nth-child(2)", this).text("Guardar");
+            console.log($("input:disabled", this).val());
+
+
+        },
+        save: function (values) {
+            console.log("pulsado la opcion de guardar");
+            console.log(values);
+            console.log("*************");
+            console.log($("input:disabled", this).val());
+            values["_id"] = $("input:disabled", this).val();
+            objValuesNew = values;
+            $(".btnEdit svg", this).replaceWith(feather.icons.edit.toSvg());
+            $(".btnEdit span:nth-child(2)", this).text("Editar");
+            console.log("-------------");
+            console.log(objValuesOld);
+            console.log(objValuesNew);
+            //si han cambiado los objetos, se procede a guardar
+            if (JSON.stringify(objValuesOld) !== JSON.stringify(objValuesNew)) {
+                console.log("Objetos diferentes");
+
+                //var id = $(this).data('id');
+                // $.post('/api/object/' + id, values);
+                const uri = "/api/device/" + objValuesNew._id;
+                console.log(uri);
+                $.ajax({
+                    url: uri,
+                    method: "PUT",
+                    //type: 'PUT',  
+                    dataType: 'json',
+                    data: objValuesNew
+                })
+                    .done(function (data, textStatus, jqXHR) {
+                        // $(this).addClass("done");
+                        if (textStatus == "success") {
+                            $("#contResultText").attr({"role":"alert", "class":"alert alert-success"})
+                            $("#contResultText").text(data.message);                            
+                        }
+                        $("#contResultText").show("slow", function () {
+
+                        });
+
+                        console.log("data:");
+                        console.log(data.message);
+                        console.log("textStatus:");
+                        console.log(textStatus);
+                        console.log("jqXHR:");
+                        console.log(jqXHR);
+                    })
+                    .fail(function (jqXHR, textStatus, errorThrown) {
+                        console.log("FALLO AL GUARDAR EL REGISTRO");
+                        console.log(jqXHR);
+                        console.log(textStatus);
+                        console.log(errorThrown);
+                    });
+            }
+        },
+        cancel: function (values) { console.log("pulsado la opcion de cancelar"); console.log(values); }
+    });
+
 </script>
+
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+    stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2"><polygon points="16 3 21 8 8 21 3 21 3 16 16 3"></polygon></svg>

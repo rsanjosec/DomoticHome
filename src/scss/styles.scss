@@ -1,5 +1,7 @@
 $bg-color: blue;
-
-h2.titulo{
-    background: $bg-color;
-}
+$bg-color-box: rgb(134, 134, 134);
+h2.titulo{ background: $bg-color;}
+#contResult{ border:$bg-color-box thin solid;  background-color: rgb(88, 88, 88); color:white; padding: 2px 12px; }
+.contResultText{display: none; }
+.alert{padding: .3rem 0.4rem;}
+#btn-up-down span{ margin: 2px 3px; padding: 0px 5px; }

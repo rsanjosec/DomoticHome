@@ -1,2 +1,18 @@
 h2.titulo {
   background: blue; }
+
+#contResult {
+  border: #868686 thin solid;
+  background-color: #585858;
+  color: white;
+  padding: 2px 12px; }
+
+.contResultText {
+  display: none; }
+
+.alert {
+  padding: .3rem 0.4rem; }
+
+#btn-up-down span {
+  margin: 2px 3px;
+  padding: 0px 5px; }
