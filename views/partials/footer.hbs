@@ -86,8 +86,14 @@
             })
                 .done(function (data, textStatus, jqXHR) {
 
-                    $("#contResult").slideToggle(900, function () {
-                        $("#contResultText").text("<p>registro borrado con exito</p>");
+                   // $("#contResultText").text("<p>registro borrado con exito</p>");
+                    //$("#contResultText").slideToggle(900, function () {});
+
+
+                    $("#contResultText").attr({ "role": "alert", "class": "alert alert-success" })
+                    $("#contResultText").html("<p>registro borrado con exito</p>");
+                    $("#contResultText").show("slow", function () {
+                        // fin del evvento
                     });
 
                     console.log("data:" + data.message);
@@ -96,15 +102,12 @@
                 })
                 .fail(function (jqXHR, textStatus, errorThrown) {
 
-                    {{!-- $("#contResult").slideToggle("fast", function () {
-                        $("#contResultText").css("backgroundcolor", "red")
-                        $("#contResultText").text("<p>FALLO AL GUARDAR EL REGISTRO</p><p>" + textStatus + "</p>");
-                    }); --}}
-                    
+
+
                     let strMensaje = "<p>FALLO AL GUARDAR EL REGISTRO</p>";
-                        let strMensajeRetorno = "<p> <b>Error: </b>" + errorThrown + "<b>Código: </b>" + jqXHR.status + "<b>Descripción: </b>" + $($.parseHTML(jqXHR.responseText)).filter('pre').text() + "</p>";
-                        $("#contResultText").attr({ "role": "alert", "class": "alert alert-danger" })
-                        $("#contResultText").html(strMensaje + strMensajeRetorno);
+                    let strMensajeRetorno = "<p> <b>Error: </b>" + errorThrown + "<b>Código: </b>" + jqXHR.status + "<b>Descripción: </b>" + $($.parseHTML(jqXHR.responseText)).filter('pre').text() + "</p>";
+                    $("#contResultText").attr({ "role": "alert", "class": "alert alert-danger" })
+                    $("#contResultText").html(strMensaje + strMensajeRetorno);
 
                     console.log("FALLO AL GUARDAR EL REGISTRO");
                     console.log(jqXHR);
