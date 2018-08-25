@@ -54,10 +54,13 @@
 
 
 
+    //$("#btn-up-down").slideToggle("slow", function () {  });
 
+
+    $("#btn-up-down").on("click", function () {
+        $("#contResultText").slideToggle("slow", function () { });
+    });
     $(".btnDelete").on("click", function (vals) {
-
-
         //retorna el tr sobre el botón en el que se ha pulsado    
         let _this = $(this).parents().eq(1).css("background-color", "yellow");
 
@@ -93,18 +96,21 @@
                 })
                 .fail(function (jqXHR, textStatus, errorThrown) {
 
-                    $("#contResult").slideToggle(900, function () {
+                    {{!-- $("#contResult").slideToggle("fast", function () {
                         $("#contResultText").css("backgroundcolor", "red")
                         $("#contResultText").text("<p>FALLO AL GUARDAR EL REGISTRO</p><p>" + textStatus + "</p>");
-                    });
+                    }); --}}
+                    
+                    let strMensaje = "<p>FALLO AL GUARDAR EL REGISTRO</p>";
+                        let strMensajeRetorno = "<p> <b>Error: </b>" + errorThrown + "<b>Código: </b>" + jqXHR.status + "<b>Descripción: </b>" + $($.parseHTML(jqXHR.responseText)).filter('pre').text() + "</p>";
+                        $("#contResultText").attr({ "role": "alert", "class": "alert alert-danger" })
+                        $("#contResultText").html(strMensaje + strMensajeRetorno);
+
                     console.log("FALLO AL GUARDAR EL REGISTRO");
                     console.log(jqXHR);
                     console.log(textStatus);
                     console.log(errorThrown);
                 });
-
-
-
             //cierra la ventana modal
             $('#exampleModalCenter').modal('hide');
             //detectar el cierre de la ventana modal
@@ -115,17 +121,12 @@
                 $(_this).closest('tr').fadeOut("fast", function () {
                     $(_this).closest('tr').remove();
                 });
-
             });
-
         });
-
-
-
     });
 
 
-    console.log(location.pathname.substr(1).split("/")[1]);
+    // console.log(location.pathname.substr(1).split("/")[1]); //retorna devices
 
     //para la EDICIÓN en la tabla sobre un elemento
     var objValuesOld = {};
@@ -167,18 +168,17 @@
                 $.ajax({
                     url: uri,
                     method: "PUT",
-                    //type: 'PUT',  
                     dataType: 'json',
                     data: objValuesNew
                 })
                     .done(function (data, textStatus, jqXHR) {
                         // $(this).addClass("done");
                         if (textStatus == "success") {
-                            $("#contResultText").attr({"role":"alert", "class":"alert alert-success"})
-                            $("#contResultText").text(data.message);                            
+                            $("#contResultText").attr({ "role": "alert", "class": "alert alert-success" })
+                            $("#contResultText").text(data.message);
                         }
                         $("#contResultText").show("slow", function () {
-
+                            // fin del evvento
                         });
 
                         console.log("data:");
@@ -189,10 +189,19 @@
                         console.log(jqXHR);
                     })
                     .fail(function (jqXHR, textStatus, errorThrown) {
-                        console.log("FALLO AL GUARDAR EL REGISTRO");
-                        console.log(jqXHR);
-                        console.log(textStatus);
-                        console.log(errorThrown);
+
+                        let strMensaje = "<p>FALLO AL GUARDAR EL REGISTRO</p>";
+                        let strMensajeRetorno = "<p> <b>Error: </b>" + errorThrown + "<b>Código: </b>" + jqXHR.status + "<b>Descripción: </b>" + $($.parseHTML(jqXHR.responseText)).filter('pre').text() + "</p>";
+                        $("#contResultText").attr({ "role": "alert", "class": "alert alert-danger" })
+                        $("#contResultText").html(strMensaje + strMensajeRetorno);
+
+
+                        console.log("jqXHR");
+                        console.log(jqXHR);     //retorna un objeto
+                        console.log("textStatus");
+                        console.log(textStatus); //retorna 'error'
+                        console.log("errorThrown");
+                        console.log(errorThrown);// retorna 'not found'
                     });
             }
         },

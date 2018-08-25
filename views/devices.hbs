@@ -3,25 +3,24 @@
         <h1>Listado de dispositivos</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
             <div class="btn-group mr-2">
-                <button class="btn btn-sm btn-outline-secondary">Share</button>
-                <button class="btn btn-sm btn-outline-secondary">Export</button>
+                <button class="btn btn-sm btn-outline-primary">Añadir un nuevo</button>               
             </div>
-            <button class="btn btn-sm btn-outline-secondary dropdown-toggle">
-                <span data-feather="calendar"></span>
-                This week
-            </button>
+          
         </div>
     </div>
-  
-    <div id="contData" >
-        <div id="contResult" >
+
+    <div id="contData">
+        <div id="contResult">
             <div class="row">
-                <div class="col">Resultado de la operación:   </div>
-                <div id="btn-up-down" class="col text-right"><span data-feather="arrow-down-circle"></span>  <span data-feather="arrow-up-circle"></span></div>     
+                <div class="col">Resultado de la operación: </div>
+                <div id="btn-up-down" class="col text-right">
+                    <span data-feather="arrow-down-circle"></span>
+                    <span data-feather="arrow-up-circle"></span>
+                </div>
             </div>
-            <div id="contResultText" class="row"></div>                 
+            <div id="contResultText" class="row"></div>
         </div>
-      
+
         <table id="tbDevices" class="table">
             <thead class="thead-dark">
                 <tr>
@@ -38,9 +37,9 @@
                 {{#each devices}}
                 <tr>
                     <th scope="row">
-                        <input disabled="disabled" type="text" name="row" id="row_{{@index}}" value="{{_id}}" style="display:none" >{{@index}}
+                        <input disabled="disabled" type="text" name="row" id="row_{{@index}}" value="{{_id}}" style="display:none">{{@index}}
                     </th>
-                    <td data-field="device_name">{{device_name}} </td>
+                    <td data-field="device_name">{{device_name}}</td>
                     <td data-field="mac_address">{{mac_address}}</td>
                     <td data-field="place">{{place}}</td>
                     <td data-field="description">{{description}}</td>

@@ -7,11 +7,12 @@ h2.titulo {
   color: white;
   padding: 2px 12px; }
 
-.contResultText {
-  display: none; }
+#contResultText b:nth-last-child(-n+2) {
+  margin-left: 8px; }
 
 .alert {
-  padding: .3rem 0.4rem; }
+  padding: .3rem 0.4rem;
+  margin-top: 8px; }
 
 #btn-up-down span {
   margin: 2px 3px;
