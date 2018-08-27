@@ -30,7 +30,45 @@ function login(req, res) {
     })
 };
 
+
+function getDevices(req, res) {
+
+    console.log("PINTA baseUrl");
+    console.dir(req.baseUrl);
+    var baseUrl =  req.baseUrl;
+    Device.find({}, (err, devices) => {
+       
+
+        if(baseUrl=="/admon"){
+            console.log("Entra en retornar todos los dispositivos.(admon)");
+            if (err) { return res.status(500).send({ message: `Error al realizar la petición: ${error}` }); }
+            if (!devices) { return res.status(404).send({ message: 'Actualmente no existen dispositivos dados de alta.' }); }
+            //console.dir(devices);
+            //res.status(200).render( { devices });
+            
+          console.dir(devices);
+            
+            var data =   {
+                title: 'Dashboard',
+                devices: devices
+            }
+            res.render('users', data);
+            
+        }
+        if(baseUrl=="/api"){
+            console.log("Entra en retornar todos los dispositivos.(api)");
+            if (err) { return res.status(500).send({ message: `Error al realizar la petición: ${error}` }); }
+            if (!devices) { return res.status(404).send({ message: 'Actualmente no existen dispositivos dados de alta.' }); }
+            //console.dir(devices);
+            res.status(200).send({ devices });
+        }
+
+      
+    });
+}
+
 module.exports = {
+    getUsers,
     register,
     login
 }

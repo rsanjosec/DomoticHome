@@ -25,11 +25,12 @@ const auth = require("../middlewares/auth");
 
 router.get("/", AdmonController.getHome);
 router.get("/devices", DeviceController.getDevices);
+router.get("/devices/add", DeviceController.getDevices);
 
 //Retorna todos los dispositivos 
 //para activar la autenticación 
 //router.get("/devices", auth.isUserAuth, DeviceController.getDevices);
-router.get("/devices", DeviceController.getDevices);
+
 // //Busca un dispositivo por identificador
 // router.get('/device/:id_device', DeviceController.getDevice);
 // //Actualiza valor del dispositivo[id_disp, valor]

@@ -17,3 +17,6 @@ h2.titulo {
 #btn-up-down span {
   margin: 2px 3px;
   padding: 0px 5px; }
+
+.nav-item > ul .nav-item {
+  margin-left: 18px; }
