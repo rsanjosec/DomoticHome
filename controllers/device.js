@@ -27,31 +27,47 @@ function getDevice(req, res) {
 
     });
 }
+
+
+function showAddDevice(req, res) {
+    var baseUrl =  req.baseUrl;
+    console.log("baseUrl de showAddDevice");
+    console.log(baseUrl);
+    let path = (req.path).slice(1);
+    if(baseUrl=="/admon"){
+        var data =   {
+            title: 'Insertar un nuevo dispositivo',
+            path: path           
+        }
+        res.render('deviceAdd', data);
+    }
+
+}
+
 /*
 Retorna todos los dispositivos por solicitud get(el listado de dispositivos)
 */
-
-
 function getDevices(req, res) {
 
     console.log("PINTA baseUrl");
     console.dir(req.baseUrl);
     var baseUrl =  req.baseUrl;
-    Device.find({}, (err, devices) => {
-       
+    let path = (req.path).slice(1);
+    Device.find({}, (err, devices) => {     
 
         if(baseUrl=="/admon"){
             console.log("Entra en retornar todos los dispositivos.(admon)");
             if (err) { return res.status(500).send({ message: `Error al realizar la petición: ${error}` }); }
-            if (!devices) { return res.status(404).send({ message: 'Actualmente no existen dispositivos dados de alta.' }); }
+            if (!devices) { return res.status(404).send({ message: 'Actualmente no existen dispositivos dados de alta en el sistema.' }); }
             //console.dir(devices);
             //res.status(200).render( { devices });
             
-          console.dir(devices);
+          //console.dir(devices);
             
             var data =   {
                 title: 'Dashboard',
-                devices: devices
+                devices: devices,
+                path: path
             }
             res.render('devices', data);
             
@@ -59,7 +75,7 @@ function getDevices(req, res) {
         if(baseUrl=="/api"){
             console.log("Entra en retornar todos los dispositivos.(api)");
             if (err) { return res.status(500).send({ message: `Error al realizar la petición: ${error}` }); }
-            if (!devices) { return res.status(404).send({ message: 'Actualmente no existen dispositivos dados de alta.' }); }
+            if (!devices) { return res.status(404).send({ message: 'Actualmente no existen dispositivos dados de alta en el sistema.' }); }
             //console.dir(devices);
             res.status(200).send({ devices });
         }
@@ -71,35 +87,46 @@ function getDevices(req, res) {
 //actualiza valor del dispositivo[id_disp, valor]
 function updateDevice(req, res) {
     console.log("Entra por actualizacion");
-
     Device.findByIdAndUpdate(req.params.device_id, req.body, (err, device) => {
-        if (err) { return res.status(500).send({ message: `Error al actualizar el dispositivo ${err}` }); }
-        if (!device) { return res.status(404).send({ message: 'No se ha encontrado el dispositivo' }); }
-        res.status(200).send({ message: "Dispositivo se ha actualizado correctamente" })
-    })
+        if (err) {
+            return res.status(500).send({ message: `Error al actualizar el dispositivo ${err}` });
+        }
+        if (!device) {
+            return res.status(404).send({ message: 'No se ha encontrado el dispositivo' });
+        }
+        res.status(200).send({ message: "Dispositivo se ha actualizado correctamente" });
+    });
 }
 
 //elimina, borra un dispositivo
 function deleteDevice(req, res) {
-    console.log("Entra en delete " + req.params.device_id);
-
+    console.log("controller Entra en delete " + req.params.device_id);
     Device.findById(req.params.device_id, (err, device) => {
-        if (err) { return res.status(500).send({ message: `Error al borrar el  dispositivo ${err}` }); }
-        if (!device) { return res.status(404).send({ message: 'No se ha encontrado el dispositivo' }); }
+        if (err) {
+            return res.status(500).send({ message: `Error al borrar el  dispositivo ${err}` });
+        }
+        if (!device) {
+            return res.status(404).send({ message: 'No se ha encontrado el dispositivo' });
+        }
         device.remove(err => {
-            if (err) { return res.status(500).send({ message: `Error al borrar el dispositivo: ${error}` }); }
+            if (err) {
+                return res.status(500).send({ message: `Error al borrar el dispositivo: ${error}` });
+            }
         });
-        res.status(200).send({ message: "Dispositivo borrado correctamente" })
-    })
+        res.status(200).send({ message: "Dispositivo borrado correctamente" });
+    });
 }
 
 // para multipart/form-data:  app.post('/items', upload.array(), (req, res, next)=>{
 
 function insertDevice(req, res) {
-    console.log("Entar en dar de alta un dispositivo");
+    
+    console.log("Entar en dar de alta un dispositivo");    
+    console.dir(req.baseUrl);
     //pinta lo que le llega en el body del mensaje
-
+    console.log(req.body)
     Save.saveRequestToFile(req);
+
     console.log("device description:" + req.body.description);
 
     //Instanciamos un nuevo objeto de tipo Device
@@ -109,7 +136,7 @@ function insertDevice(req, res) {
     device.mac_address = req.body.mac_address;
     device.place = req.body.place;
     device.description = req.body.description;
-    device.device_type = req.body.device_type;
+    device.device_type = String(req.body.device_type).toLowerCase();
 
     device.save((err, deviceStored) => {
         //en caso de error se muestra un mensaje
@@ -123,5 +150,6 @@ module.exports = {
     getDevices,
     updateDevice,
     insertDevice,
-    deleteDevice
+    deleteDevice,
+    showAddDevice
 }

@@ -18,7 +18,7 @@ const auth = require("../middlewares/auth");
   referencia:
   https://es.wikipedia.org/wiki/Protocolo_de_transferencia_de_hipertexto#M%C3%A9todos_de_petici%C3%B3n
 */
-
+// *****RUTAS PARA EL DISPOSITIVO ******
 //Retorna todos los dispositivos 
 //para activar la autenticación 
 //router.get("/devices", auth.isUserAuth, DeviceController.getDevices);
@@ -35,12 +35,16 @@ router.post('/device', DeviceController.insertDevice);
 //inserta datos de un dispositivo
 router.post('/device-data', DeviceDataController.insertDeviceData);
 
-
+// *****RUTAS PARA EL USUARIO ******
+//rutas para usuario
+//router.get("/devices", auth.isUserAuth, DeviceController.getDevices);
+router.get("/users", UserControler.getUsers);
+router.post('/user', UserControler.addUser);
+router.post("/login", UserControler.login);
+router.delete("/user/:user_id", UserControler.deleteUser);
+router.put("/user/:user_id", UserControler.updateUser);
 
 //acceso a las rutas privadas
-router.post("/register", UserControler.register);
-router.post("/login", UserControler.login);
-
 router.get("/private", auth.isUserAuth, (req, res) => {
   res.status(200).send({ message: "Acceso concedido." });
 });

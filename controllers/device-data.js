@@ -23,9 +23,9 @@ function insertDeviceData(req, res) {
     device.device_name = req.body.device_name;
     device.val = req.body.val;
 
-    console.log(cf_color.FgRed + '%s' + cf_color.Reset, "--------------");
-    console.dir(device);
-    console.log(cf_color.FgRed + '%s' + cf_color.Reset, "--------------");
+    // console.log(cf_color.FgRed + '%s' + cf_color.Reset, "--------------");
+    // console.dir(device);
+    // console.log(cf_color.FgRed + '%s' + cf_color.Reset, "--------------");
 
 
     // console.log(cf_color.FgCyan + '%s' + cf_color.Reset, "device_name: " + req.body.device_name);

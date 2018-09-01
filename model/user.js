@@ -3,17 +3,17 @@
  * Es
  */
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+const schema = mongoose.Schema;
 const bcrypt = require('bcrypt-nodejs')
 
-const UserSchema = new Schema({
-    email:{type:String, unique:true, lowercase:true},
-    name: String,
-    surname: String,
+const UserSchema = schema({ 
+    user_email:{type:String, unique:true, lowercase:true},    
+    user_name: String,
+    user_surname: String,
     // select:false no retorna la password en una consulta
-    password : {type:String, select:false },
+    user_password : {type:String, select:false },
     dateRegister: {type:Date, default:Date.now()},
-    lastLogin: Date
+    lastLogin: {type:Date, default:Date.now()},
 });
 
 /**
@@ -30,10 +30,11 @@ UserSchema.pre('save', (next) => {
         bcrypt.hash(user.password, salt, null, (err, hash) => {
             if (err) return next(err);
             //se asigna el hash generado al usuario    
-            user.password = hash
+            user.password = hash;
             next();
         });
     });
 });
 
-module.exports = mongoose.model('User', UserSchema);
+module.exports = mongoose.model('Users', UserSchema);
+

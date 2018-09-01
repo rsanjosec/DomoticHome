@@ -1,4 +1,6 @@
 <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+  <h1>RUTA ES: {{ path }}</h1>
+
   <div class="sidebar-sticky">
     <ul class="nav flex-column">
       <li class="nav-item">
@@ -9,30 +11,59 @@
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/admon/users">
+        {{#compare path "==" "users"}}
+        <a class="nav-link menu-item-selected" href="/admon/users">
+          {{else}}
+          <a class="nav-link" href="/admon/users">
+          {{/compare}}
           <span data-feather="user"></span>
           Admon. usuarios
         </a>
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            {{#compare path "==" "add-user"}}
+            <a class="nav-link menu-item-selected" href="/admon/add-user">
+              {{else}}
+              <a class="nav-link" href="/admon/add-user">
+                {{/compare}}
+                <span data-feather="plus-circle"></span>
+                Añadir usuario
+              </a>
+          </li>
+        </ul>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/admon/devices">
+        {{#compare path "==" "devices"}}
+        <a class="nav-link menu-item-selected" href="/admon/devices">
+          {{else}}
+          <a class="nav-link" href="/admon/devices">
+          {{/compare}}
           <span data-feather="codepen"></span>
           Admon. dispositivos
         </a>
         <ul class="nav flex-column">
           <li class="nav-item">
-            <a class="nav-link" href="/admon/devices/add">
+            {{#compare path "==" "add-device"}}
+            <a class="nav-link menu-item-selected" href="/admon/add-device">
+              {{else}}
+              <a class="nav-link" href="/admon/add-device">
+              {{/compare}}
               <span data-feather="plus-circle"></span>
-              Añadir dispositivos
+              Añadir dispositivo
             </a>
           </li>
         </ul>
       </li>
 
       <li class="nav-item">
-        <a class="nav-link" href="/admoin/charts">
+        {{#compare path "==" "charts"}}
+            <a class="nav-link menu-item-selected" href="/admon/charts">
+              {{else}}
+              <a class="nav-link" href="/admon/charts">
+              {{/compare}}        
           <span data-feather="bar-chart-2"></span>
           Estadísticas
+
         </a>
       </li>
     </ul>

@@ -5,4 +5,7 @@ h2.titulo{ background: $bg-color;}
 #contResultText b:nth-last-child(-n+2){ margin-left: 8px}
 .alert{padding: .3rem 0.4rem; margin-top: 8px;}
 #btn-up-down span{ margin: 2px 3px; padding: 0px 5px; }
-.nav-item > ul .nav-item { margin-left: 18px;}
+.nav-item > ul .nav-item { margin-left: 1rem; margin-right: 1rem;}
+.menu-item-selected{ background-color: #dbe6f1;}
+h1{font-size: 1.6rem;  color: #007bff;  font-weight: bold;}
+
