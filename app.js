@@ -21,6 +21,8 @@ const path = require('path');
 //const multer = require("multer");
 
 const app = express();
+//gestion de rutas en general(errores)
+const rtGen = require('./router/general')
 //rutas para la api
 const rtApi = require('./router/api');
 //rutas para las páginas de administración de la web app
@@ -90,5 +92,6 @@ app.set('view engine', 'hbs');
 
 app.use('/api', rtApi);
 app.use('/admon', rtAdm);
+app.use('/', rtGen);
 
 module.exports = app;

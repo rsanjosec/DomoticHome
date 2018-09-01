@@ -24,6 +24,14 @@ Proyectos:
 
     ☐ panel de administracion - estadísticas    
       ☐ implementar la visualización de dispositivos botones de alta, borrar , editar
-      ☐ implementar la lógica de añadir, editar y borrar   
-    ☐ Página de login para el acceso al panel de control 
+      ☐ implementar la lógica de añadir, editar y borrar
+
+  ☐ Página de login para el acceso al panel de control 
+  
   ☐ configurar base de datos mongo(password)
+
+  ☐ Correcciones en general 
+    ☐ Cambiar el nombre de la plantilla /home/ruben/data/node/DomoticHome/views/partials/modalDeleteDevice.hbs a modalAdmon.hbs 
+    ☐ Revisar el proceso de gulp, no termina y se cierra aunque si que ejecuta todo
+    
+   
