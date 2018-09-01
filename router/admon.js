@@ -20,6 +20,10 @@ router.get("/add-device", DeviceController.showAddDevice);
 router.get("/users", UserControler.getUsers);
 //muestra la página de añadir un usuario
 router.get("/add-user", UserControler.showAddUser);
+//para las Estadísticas
+router.get("/users", StatsControler.getStats);
+
+
 
 
 module.exports = router;
