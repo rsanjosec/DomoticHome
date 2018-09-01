@@ -1,20 +1,29 @@
 Proyectos:
   DomoticHome:
    ✔ Integra bootstrap 4 @done(18-08-05 01:34)
-  ☐ crear un menú para el dashboard para multidispositivo
+  ✔ crear un menú para el dashboard para multidispositivo @done(18-08-30 02:26)
   ✔ crear agente mqtt @done(18-08-08 17:04)
   ☐ securizar la conexión del broker mosquito con ssl
     https://www.manolodominguez.com/2017/02/05/instalando-un-broker-mqtt-domestico-ii/
 
   ☐ con mosquito(cliente) realizar un bucle para alimentar el subcriptor
   ☐ Panel de administración
+    ☐ Con helpers de handlebars marcar la ruta de la página en la que nos encontramos.
+
     ☐ panel de administracion - usuarios
       ✔ implementar la visualización de dispositivos botones de alta, borrar , editar @done(18-08-17 01:07)
-      ☐ implementar la lógica de añadir, editar y borrar
+      ✔ implementar la lógica de añadir, editar y borrar @done(18-08-30 02:24)
+      ☐ tooltip para plegar /desplegar el mensaje de retorno
+      ☐ validacion de cliente de los formularios de alta y edición      
+      
     ☐ panel de administracion - dispositivos
+      ✔ implementar la visualización de dispositivos botones de alta, borrar , editar @done(18-08-23 18:28)
+      ✔ implementar la lógica de añadir, editar y borrar @done(18-08-25 15:58)
+      ☐ tooltip para plegar /desplegar el mensaje de retorno
+      ☐ validacion de cliente de los formularios de alta y edición
+
+    ☐ panel de administracion - estadísticas    
       ☐ implementar la visualización de dispositivos botones de alta, borrar , editar
-      ☐ implementar la lógica de añadir, editar y borrar
-    ☐ panel de administracion - estadísticas
-      ☐ implementar la visualización de dispositivos botones de alta, borrar , editar
-      ☐ implementar la lógica de añadir, editar y borrar    
+      ☐ implementar la lógica de añadir, editar y borrar   
+    ☐ Página de login para el acceso al panel de control 
   ☐ configurar base de datos mongo(password)

@@ -1,7 +1,16 @@
 'use strict'
+//asignada variable para poder parar mediante comando stop el servidor con npm stop, configurado en package.json-> scripts
+process.title = "domoticHome";
 const express = require('express');
 //motor de plantilllas express-handlebars
 const exphbs = require('express-handlebars');
+//const helpers = require('./lib/helpers');
+
+
+var helpers = require('handlebars-helpers');
+var eq = helpers.comparison();
+var compare = helpers.comparison();
+
 
 //analiza ficheros de tipo json recibidos en el body del mensaje y análisisi de formularios
 const bodyParser = require('body-parser');
@@ -35,24 +44,49 @@ app.use(bodyParser.json());
 
 //ruta para los ficheros estáticos "public"
 app.use(express.static(path.join(__dirname, 'public')));
-console.log("__dirname");
-console.log(__dirname);
+console.log("__dirname" + __dirname);
 
 
-app.engine('hbs', exphbs({
+
+// app.engine('hbs', exphbs({
+//     extname: '.hbs', 
+//     defaultLayout: 'default', 
+//     helpers: {
+//         foo: function () { return 'FOO!'; },
+//         ifEquals: function(arg1, arg2, opts) { 
+//             if (arg1 == arg2) {
+//                 return opts.fn(this)
+//             } else {
+//                 return opts.inverse(this)
+//             }
+//          },
+//         bar: function () { return 'BAR!'; }
+//     },
+//     layoutsDir: __dirname + '/views/layouts',
+//     partialsDir  : [
+//         //  path to your partials
+//         __dirname + '/views/partials',
+//     ]
+// }));
+
+var hbs = exphbs.create({
     extname: '.hbs', 
-    defaultLayout: 'default', 
+    defaultLayout: 'default',
+    helpers: {
+        foo: function () { return 'FOO!'; },
+        bar: function () { return 'BAR!'; }
+    },    
     layoutsDir: __dirname + '/views/layouts',
     partialsDir  : [
-        //  path to your partials
         __dirname + '/views/partials',
     ]
-}));
+});
+
+
+app.engine('hbs', hbs.engine);
 app.set('view engine', 'hbs');
 
-
- 
-
+//app.set('view engine', 'hbs');
 
 app.use('/api', rtApi);
 app.use('/admon', rtAdm);

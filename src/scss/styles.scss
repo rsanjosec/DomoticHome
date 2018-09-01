@@ -1,5 +1,11 @@
 $bg-color: blue;
+$bg-color-box: rgb(134, 134, 134);
+h2.titulo{ background: $bg-color;}
+#contResult{ border:$bg-color-box thin solid;  background-color: rgb(88, 88, 88); color:white; padding: 2px 12px; }
+#contResultText b:nth-last-child(-n+2){ margin-left: 8px}
+.alert{padding: .3rem 0.4rem; margin-top: 8px;}
+#btn-up-down span{ margin: 2px 3px; padding: 0px 5px; }
+.nav-item > ul .nav-item { margin-left: 1rem; margin-right: 1rem;}
+.menu-item-selected{ background-color: #dbe6f1;}
+h1{font-size: 1.6rem;  color: #007bff;  font-weight: bold;}
 
-h2.titulo{
-    background: $bg-color;
-}
