@@ -3,9 +3,8 @@
         <h1>Listado de dispositivos</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
             <div class="btn-group mr-2">
-                <button class="btn btn-sm btn-outline-primary">Añadir un nuevo dispositivo</button>
-            </div>
 
+            </div>
         </div>
     </div>
 
@@ -21,36 +20,48 @@
             <div id="contResultText" class="row"></div>
         </div>
     </div>
-    <div class="row">
-        <div class="coll">
 
-            <form>
-                <div class="form-group">
-                    <label for="deviceName">Nombre del dispositivo:</label>
-                    <input type="text" class="form-control" id="deviceName" name="device_name" placeholder="Nombre identificativo del dispositivo">
-                </div>
-                <div class="form-group">
-                    <label for="macAddress">Mac Adress: </label>
-                    <input type="text" class="form-control" id="macAddress" name="mac_address" placeholder="Dirección mac del dispositivo">
-                </div>
-                <div class="form-group">
-                    <label for="place">Ubicación: </label>
-                    <input type="text" class="form-control" id="place" name="place" placeholder="Donde se encuentra el dispositivo">
-                </div>
-                <div class="form-group">
-                    <label for="description">Descripcion: </label>
-                    <textarea class="form-control" id="description" name="description" placeholder="Funcionalidad que acomete el dispositivo \n ej: sensores de consumo" rows="3"></textarea>
-                </div>            
-                 <div class="form-group">
-                    <label for="deviceType">Descripcion: </label>
-                    <textarea class="form-control" id="deviceType" name="device_type" placeholder="Ej: Arduino \ Esp32"></textarea>
-                </div>                
-               
-                <div class="form-group">
-                   <button class="btn btn-primary" type="submit">Submit form</button>
-                </div>
-            </form>
 
+    <form class="form-device-add" id="formDeviceAdd">
+        <div class="form-row">
+            <div class="col-md-4 mb-4">
+                <label for="deviceName">Nombre del dispositivo:</label>
+                <input type="text" class="form-control" id="deviceName" name="device_name" placeholder="Nombre identificativo del dispositivo">
+            </div>
+            <div class="col-md-4 mb-4">
+                <label for="macAddress">Mac Adress: </label>
+                <input type="text" class="form-control" id="macAddress" name="mac_address"  autocomplete="on"  placeholder="Dirección mac del dispositivo">
+            </div>
+            <div class="col-md-4 mb-4">
+                <label for="place">Ubicación: </label>                
+                <select class="form-control" id="place" name="place">
+                    <option selected value="salón">salón</option>
+                    <option value="habitación1">habitación 1</option>
+                    <option value="habitación2">habitación 2</option>
+                    <option value="cocina">cocina</option>
+                    <option value="baño">baño</option>
+                </select>
+            </div>
         </div>
-    </div>
+        <div class="form-row">
+            <div class="col-md-6 mb-4">
+                <label for="description">Descripcion: </label>
+                <textarea class="form-control" id="description" name="description"  autocomplete="on"  placeholder="Funcionalidad que acomete el dispositivo \n ej: sensores de consumo"
+                    rows="3"></textarea>
+            </div>
+            <div class="col-md-4 mb-4">
+                <label for="deviceType">Tipo de dispositivo: </label>
+                <select class="form-control" id="deviceType" name="device_type">
+                    <option selected value="arduino">Arduino</option>
+                    <option value="esp32">Esp32</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <button class="btn btn-primary" type="submit" id="btnDeviceAdd" >Guardar Dispositivo</button>
+        </div>
+    </form>
+
+
 </main>

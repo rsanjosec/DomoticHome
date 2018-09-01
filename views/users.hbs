@@ -3,7 +3,7 @@
         <h1>Listado de Usuarios</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
             <div class="btn-group mr-2">
-                <button class="btn btn-sm btn-outline-primary">Añadir un nuevo usuario</button>               
+                 <a class="btn btn-sm btn-outline-primary" href="/admon/add-user" role="button"> Añadir un nuevo usuario</a>                              
             </div>
           
         </div>
@@ -25,25 +25,21 @@
             <thead class="thead-dark">
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Nombre del dispositivo</th>
-                    <th scope="col">Mac Address</th>
-                    <th scope="col">Ubicación</th>
-                    <th scope="col">Descripción</th>
-                    <th scope="col">Tipo de dispositivo</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Apellidos</th>
+                    <th scope="col">Email</th>                                    
                     <th scope="col">Acción</th>
                 </tr>
             </thead>
             <tbody>
-                {{#each devices}}
+                {{#each users}}
                 <tr>
                     <th scope="row">
                         <input disabled="disabled" type="text" name="row" id="row_{{@index}}" value="{{_id}}" style="display:none">{{@index}}
                     </th>
-                    <td data-field="device_name">{{device_name}}</td>
-                    <td data-field="mac_address">{{mac_address}}</td>
-                    <td data-field="place">{{place}}</td>
-                    <td data-field="description">{{description}}</td>
-                    <td data-field="device_type">{{device_type}}</td>
+                    <td data-field="user_name">{{user_name}}</td>
+                    <td data-field="user_surname">{{user_surname}}</td>
+                    <td data-field="user_email">{{user_email}}</td>                   
                     <td>
                         <button id="btn_delete_{{@index}}" type="button" class="btn btn-danger btn-sm btnDelete">
                             <span data-feather="trash"></span>

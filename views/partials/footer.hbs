@@ -11,7 +11,7 @@
 <!-- Icons -->
 <script src="/javascript/feather.min.js"></script>
 <script>
-    feather.replace()
+    feather.replace();
 </script>
 
 
@@ -20,6 +20,9 @@
 <!-- Graphs -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
 <script>
+
+
+
     var ctx = document.getElementById("myChart");
     if (ctx) {
         var myChart = new Chart(ctx, {
@@ -51,44 +54,185 @@
     }
 </script>
 <script>
-
-
-
+    console.log("Ruta de retorno: "+location.pathname.substr(1).split("/")[1]); //retorna devices
+    console.log(window.location.pathname)
     //$("#btn-up-down").slideToggle("slow", function () {  });
 
 
-    $("#btn-up-down").on("click", function () {
-        $("#contResultText").slideToggle("slow", function () { });
-    });
-    $(".btnDelete").on("click", function (vals) {
-        //retorna el tr sobre el botón en el que se ha pulsado    
+
+
+function userAdd(objCollForm){
+    console.log("entra por FUNCION useradd()");
+     const uri = "/api/user"
+                console.log(uri);
+                $.ajax({
+                    url: uri,
+                    method: "POST",
+                    dataType: 'json',
+                    data: objCollForm
+                })
+                    .done(function (data, textStatus, jqXHR) {
+                        // $(this).addClass("done");
+                        if (textStatus == "success") {
+                            $("#contResultText").attr({ "role": "alert", "class": "alert alert-success" })
+                            $("#contResultText").text("Usuario registrado correctamente");
+                        }
+                        $("#contResultText").show("slow", function () {
+                            // fin del evvento
+                        });
+
+                        //jqXHR.statusText == "Created"
+                        // jqXHR.responseJSON.token retorna el token de creaión del usuario
+                        console.log("data:");
+                        console.log(data);
+                        console.log("textStatus:");
+                        console.log(textStatus);
+                        console.log("jqXHR:");
+                        console.log(jqXHR);
+
+
+                    })
+                    .fail(function (jqXHR, textStatus, errorThrown) {
+
+                        let strMensaje = "<p>FALLO AL GUARDAR EL REGISTRO</p>";
+                        let strMensajeRetorno = "<p> <b>Error: </b>" + errorThrown + "<b>Código: </b>" + jqXHR.status + "<b>Descripción: </b>" + jqXHR.responseJSON.message + "</p>";
+                        $("#contResultText").attr({ "role": "alert", "class": "alert alert-danger" })
+                        $("#contResultText").html(strMensaje + strMensajeRetorno);
+
+
+                        console.log("jqXHR");
+                        console.log(jqXHR);     //retorna un objeto
+                        console.log("textStatus");
+                        console.log(textStatus); //retorna 'error'
+                        console.log("errorThrown");
+                        console.log(errorThrown);// retorna 'not found'
+                    });
+}
+
+function deviceAdd(objCollForm){
+    console.log("entra por FUNCION deviceAdd()");
+     const uri = "/api/device";
+     console.log("collecion del formulario de dispositivo");
+                console.log(objCollForm);
+                $.ajax({
+                    url: uri,
+                    method: "POST",
+                    dataType: 'json',
+                    data: objCollForm
+                })
+                    .done(function (data, textStatus, jqXHR) {
+                        // $(this).addClass("done");
+                        if (textStatus == "success") {
+                            $("#contResultText").attr({ "role": "alert", "class": "alert alert-success" })
+                            $("#contResultText").text("Dispositivo insertado correctamente");
+                        }
+                        $("#contResultText").show("slow", function () {
+                            // fin del evvento
+                        });
+
+                        //jqXHR.statusText == "Created"
+                        // jqXHR.responseJSON.token retorna el token de creaión del usuario
+                        console.log("data:");
+                        console.log(data);
+                        console.log("textStatus:");
+                        console.log(textStatus);
+                        console.log("jqXHR:");
+                        console.log(jqXHR);
+
+
+                    })
+                    .fail(function (jqXHR, textStatus, errorThrown) {
+
+                        let strMensaje = "<p>FALLO AL GUARDAR EL REGISTRO</p>";
+                        let strMensajeRetorno = "<p> <b>Error: </b>" + errorThrown + "<b>Código: </b>" + jqXHR.status + "<b>Descripción: </b>" + jqXHR.responseJSON.message + "</p>";
+                        $("#contResultText").attr({ "role": "alert", "class": "alert alert-danger" })
+                        $("#contResultText").html(strMensaje + strMensajeRetorno);
+
+
+                        console.log("jqXHR");
+                        console.log(jqXHR);     //retorna un objeto
+                        console.log("textStatus");
+                        console.log(textStatus); //retorna 'error'
+                        console.log("errorThrown");
+                        console.log(errorThrown);// retorna 'not found'
+                    });
+}
+
+//se recolecta todos los campos del formulario
+$("#formUserAdd").submit(function (event) {
+    console.log($(this).serializeArray());
+    userAdd( $(this).serializeArray() );
+    event.preventDefault();
+});
+
+
+//se recolecta todos los campos del formulario
+$("#formDeviceAdd").submit(function (event) {
+    console.log($(this).serializeArray());
+    deviceAdd ($(this).serializeArray() );
+    event.preventDefault();
+});
+
+//plegar/desplegar el mesaje de retorno del servidor
+$("#btn-up-down").on("click", function () {
+    $("#contResultText").slideToggle("slow", function () { });
+});
+//borrar elementos
+$(".btnDelete").on("click", function (vals) {
+/*
+        console.log("-------vals---------");
+        console.log(vals);
+        console.log("----------------");
+        
+        //retorna el tr sobre el botón en el que se ha pulsado
+        console.log($(this).parent().eq(2));
+        console.log("----------------");
+        console.log($(this).parent().parent().get(0).tagName); 
+        console.log("-------filter(input)---------");
+        console.log($(this).parent("input:disabled").parent().val()); 
+        */
+        console.log("********************");
+        console.log($(this).parents().eq(1).find("input:disabled").val());
+
+
+
         let _this = $(this).parents().eq(1).css("background-color", "yellow");
 
+        /* 
         let idElemIni = $(this).attr("id");
         let posIni = idElemIni.lastIndexOf("_");
         let idElemFin = idElemIni.substring(posIni + 1, idElemIni.length);
         console.log(idElemFin);
         let strInput = "row_" + idElemFin;
         strInput = "row_1"
-        console.log(strInput);
-        let idElem = $('#' + strInput).attr("value");
+       // console.log(strInput);
+       let idElem = $('#' + strInput).attr("value");
+        console.log("BBBBBBBBBBBBB");
         console.log(idElem);
+        */
+        let idElem = $(this).parents().eq(1).find("input:disabled").val()
         //se muestra la ventana modal
-        $('#exampleModalCenter').modal('show');
+         $('#exampleModalCenter').modal('show');
 
         $("#exampleModalCenter").on('click', '.btnDeleteConfirm', function () {
             console.log("pulsada la confirmación de borrado");
-            const uri = "/api/device/" + idElem;
-
+            let uri = "";
+            if (location.pathname.substr(1).split("/")[1]=="devices"){
+                 uri = "/api/device/" + idElem;                
+            }
+            //ruta para editar usuarios
+            if (location.pathname.substr(1).split("/")[1]=="users"){
+                 uri = "/api/user/" + idElem;                
+            }
+            
+            console.log("uri"+ uri)
             $.ajax({
                 url: uri,
                 method: "DELETE"
             })
                 .done(function (data, textStatus, jqXHR) {
-
-                   // $("#contResultText").text("<p>registro borrado con exito</p>");
+                    // $("#contResultText").text("<p>registro borrado con exito</p>");
                     //$("#contResultText").slideToggle(900, function () {});
-
 
                     $("#contResultText").attr({ "role": "alert", "class": "alert alert-success" })
                     $("#contResultText").html("<p>registro borrado con exito</p>");
@@ -101,9 +245,6 @@
                     console.log("jqXHR:" + jqXHR);
                 })
                 .fail(function (jqXHR, textStatus, errorThrown) {
-
-
-
                     let strMensaje = "<p>FALLO AL GUARDAR EL REGISTRO</p>";
                     let strMensajeRetorno = "<p> <b>Error: </b>" + errorThrown + "<b>Código: </b>" + jqXHR.status + "<b>Descripción: </b>" + $($.parseHTML(jqXHR.responseText)).filter('pre').text() + "</p>";
                     $("#contResultText").attr({ "role": "alert", "class": "alert alert-danger" })
@@ -119,97 +260,112 @@
             //detectar el cierre de la ventana modal
             $('#exampleModalCenter').on('hidden.bs.modal', function (e) {
                 console.log("la ventana se ha cerrado");
-
                 //si el retorno de borrado del servidor es correcto, se borra el elemento
                 $(_this).closest('tr').fadeOut("fast", function () {
                     $(_this).closest('tr').remove();
                 });
             });
         });
-    });
+
+});
 
 
-    // console.log(location.pathname.substr(1).split("/")[1]); //retorna devices
-
-    //para la EDICIÓN en la tabla sobre un elemento
-    var objValuesOld = {};
-    var objValuesNew = {};
-    $("table tr").editable({
-        dblclick: false,
-        buttonSelector: ".btnEdit",
-        edit: function (values) {
-            values["_id"] = $("input:disabled", this).val();
-            objValuesOld = values;
-            console.log(values);
-            console.log("pulsado la opcion de editar");
-            $(".btnEdit svg", this).replaceWith(feather.icons.save.toSvg());
-            $(".btnEdit span:nth-child(2)", this).text("Guardar");
-            console.log($("input:disabled", this).val());
-
-
-        },
-        save: function (values) {
-            console.log("pulsado la opcion de guardar");
-            console.log(values);
-            console.log("*************");
-            console.log($("input:disabled", this).val());
-            values["_id"] = $("input:disabled", this).val();
-            objValuesNew = values;
-            $(".btnEdit svg", this).replaceWith(feather.icons.edit.toSvg());
-            $(".btnEdit span:nth-child(2)", this).text("Editar");
-            console.log("-------------");
-            console.log(objValuesOld);
-            console.log(objValuesNew);
-            //si han cambiado los objetos, se procede a guardar
-            if (JSON.stringify(objValuesOld) !== JSON.stringify(objValuesNew)) {
-                console.log("Objetos diferentes");
-
-                //var id = $(this).data('id');
-                // $.post('/api/object/' + id, values);
-                const uri = "/api/device/" + objValuesNew._id;
-                console.log(uri);
-                $.ajax({
-                    url: uri,
-                    method: "PUT",
-                    dataType: 'json',
-                    data: objValuesNew
-                })
-                    .done(function (data, textStatus, jqXHR) {
-                        // $(this).addClass("done");
-                        if (textStatus == "success") {
-                            $("#contResultText").attr({ "role": "alert", "class": "alert alert-success" })
-                            $("#contResultText").text(data.message);
-                        }
-                        $("#contResultText").show("slow", function () {
-                            // fin del evvento
-                        });
-
-                        console.log("data:");
-                        console.log(data.message);
-                        console.log("textStatus:");
-                        console.log(textStatus);
-                        console.log("jqXHR:");
-                        console.log(jqXHR);
-                    })
-                    .fail(function (jqXHR, textStatus, errorThrown) {
-
-                        let strMensaje = "<p>FALLO AL GUARDAR EL REGISTRO</p>";
-                        let strMensajeRetorno = "<p> <b>Error: </b>" + errorThrown + "<b>Código: </b>" + jqXHR.status + "<b>Descripción: </b>" + $($.parseHTML(jqXHR.responseText)).filter('pre').text() + "</p>";
-                        $("#contResultText").attr({ "role": "alert", "class": "alert alert-danger" })
-                        $("#contResultText").html(strMensaje + strMensajeRetorno);
-
-
-                        console.log("jqXHR");
-                        console.log(jqXHR);     //retorna un objeto
-                        console.log("textStatus");
-                        console.log(textStatus); //retorna 'error'
-                        console.log("errorThrown");
-                        console.log(errorThrown);// retorna 'not found'
-                    });
+// console.log(location.pathname.substr(1).split("/")[1]); //retorna devices
+//para la EDICIÓN en la tabla sobre un elemento
+var objValuesOld = {};
+var objValuesNew = {};
+$("table tr").editable({
+    dblclick: false,
+    buttonSelector: ".btnEdit",
+    edit: function (values) {
+        console.log("*******EDITAR******");
+        console.log($("input:eq(1)", this).val());
+        values["_id"] = $("input:disabled", this).val();
+        //seleccionamos el segindo elemento de la colección de input recibidos en el this
+        $("input:eq(1)", this).focus();
+        objValuesOld = values;
+        console.log(values);
+        console.log("pulsado la opcion de editar");
+        $(".btnEdit svg", this).replaceWith(feather.icons.save.toSvg());
+        $(".btnEdit span:nth-child(2)", this).text("Guardar");
+        console.log($("input:disabled", this).val());
+    },
+    save: function (values) {
+        console.log("pulsado la opcion de guardar");
+        console.log(values);
+        console.log("******GUARDAR*******");
+        console.log($("input:disabled", this).val());
+        values["_id"] = $("input:disabled", this).val();
+        objValuesNew = values;
+        $(".btnEdit svg", this).replaceWith(feather.icons.edit.toSvg());
+        $(".btnEdit span:nth-child(2)", this).text("Editar");
+        console.log("-------------");
+        console.log(objValuesOld);
+        console.log(objValuesNew);
+        //si han cambiado los objetos, se procede a guardar
+        if (JSON.stringify(objValuesOld) !== JSON.stringify(objValuesNew)) {
+            console.log("Objetos diferentes");
+            let uri ="";
+            //var id = $(this).data('id');
+            // $.post('/api/object/' + id, values);
+            //ruta para editar dispositivos
+            if (location.pathname.substr(1).split("/")[1]=="devices"){
+                 uri = "/api/device/" + objValuesNew._id;                
             }
-        },
-        cancel: function (values) { console.log("pulsado la opcion de cancelar"); console.log(values); }
-    });
+            //ruta para editar usuarios
+            if (location.pathname.substr(1).split("/")[1]=="users"){
+                 uri = "/api/user/" + objValuesNew._id;                
+            }
+            
+            console.log(uri);
+            $.ajax({
+                url: uri,
+                method: "PUT",
+                dataType: 'json',
+                data: objValuesNew
+            })
+                .done(function (data, textStatus, jqXHR) {
+                    // $(this).addClass("done");
+                    if (textStatus == "success") {
+                        $("#contResultText").attr({ "role": "alert", "class": "alert alert-success" })
+                        $("#contResultText").text(data.message);
+                    }
+                    $("#contResultText").show("slow", function () {
+                        // fin del evvento
+                    });
+
+                    console.log("data:");
+                    console.log(data.message);
+                    console.log("textStatus:");
+                    console.log(textStatus);
+                    console.log("jqXHR:");
+                    console.log(jqXHR);
+                })
+                .fail(function (jqXHR, textStatus, errorThrown) {
+
+                    let strMensaje = "<p>FALLO AL GUARDAR EL REGISTRO</p>";
+                    let strMensajeRetorno = "<p> <b>Error: </b>" + errorThrown + "<b>Código: </b>" + jqXHR.status + "<b>Descripción: </b>" + $($.parseHTML(jqXHR.responseText)).filter('pre').text() + "</p>";
+                    $("#contResultText").attr({ "role": "alert", "class": "alert alert-danger" })
+                    $("#contResultText").html(strMensaje + strMensajeRetorno);
+
+
+                    console.log("jqXHR");
+                    console.log(jqXHR);     //retorna un objeto
+                    console.log("textStatus");
+                    console.log(textStatus); //retorna 'error'
+                    console.log("errorThrown");
+                    console.log(errorThrown);// retorna 'not found'
+                });
+        }
+    },
+    cancel: function (values) { 
+        console.log("pulsado la opcion de cancelar"); 
+        console.log(values); 
+        $(".btnEdit svg", this).replaceWith(feather.icons.edit.toSvg());
+        $(".btnEdit span:nth-child(2)", this).text("Editar");
+
+    }
+});
 
 </script>
 
