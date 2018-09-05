@@ -11,7 +11,8 @@ const UserSchema = schema({
     user_name: String,
     user_surname: String,
     // select:false no retorna la password en una consulta
-    user_password : {type:String, select:false },
+    //user_password : {type:String, select:false },
+    user_password : {type:String},
     dateRegister: {type:Date, default:Date.now()},
     lastLogin: {type:Date, default:Date.now()},
 });
@@ -22,6 +23,7 @@ const UserSchema = schema({
 */
 
 UserSchema.pre('save', (next) => {
+    console.log("entra en UserSchema.pre para la generación del hash");
     let user = this;
     bcrypt.genSalt(10, (err, salt) => {
         //si se produce un error retornamos una excepción

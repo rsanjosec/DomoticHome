@@ -1,0 +1,66 @@
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="/javascript/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="/javascript/jquery.min.js"><\/script>')</script>
+<script src="/javascript/popper.js"></script>
+<script src="/javascript/bootstrap.min.js"></script>
+<!-- Edit table -->
+
+<script>
+    $("button").click(function () {
+        $("p").show("slow");
+    });
+    function loginToApp(objCollForm) {
+        console.log("entra por FUNCION loginToApp()");
+        const uri = "/"
+        console.log(uri);
+        $.ajax({
+            url: uri,
+            method: "POST",
+            dataType: 'json',
+            data: objCollForm
+        })
+            .done(function (data, textStatus, jqXHR) {
+
+               
+
+                // $(this).addClass("done");
+                if (textStatus == "success") {
+                    window.location.href="/admon";
+                    // fin del evvento
+                    {{!-- $("#contResultText").attr({ "role": "alert", "class": "alert alert-success" })
+                    $("#contResultText").text("Usuario registrado correctamente");
+                    $("#contResultText").show(); --}}
+
+                }
+
+               
+
+
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+
+                if (jqXHR.status == 404) {
+                    // fin del evvento
+                    let strMensaje = "<p>El usuario o contraseña no son correctos</p>";
+                    $("#contResultText").attr({ "role": "alert", "class": "alert alert-danger" })
+                    $("#contResultText").html(strMensaje);
+                    $("#contResultText").show("slow");
+
+                }
+
+                console.log("jqXHR");
+                console.log(jqXHR);     //retorna un objeto
+                console.log("textStatus");
+                console.log(textStatus); //retorna 'error'
+                console.log("errorThrown");
+                console.log(errorThrown);// retorna 'not found'
+            });
+
+
+    }
+    $("#loginToApp").submit(function (event) {
+        console.log($(this).serializeArray());
+        loginToApp($(this).serializeArray());
+        event.preventDefault();
+    });
+</script>

@@ -21,5 +21,4 @@ router.get("/users", UserControler.getUsers);
 //muestra la página de añadir un usuario
 router.get("/add-user", UserControler.showAddUser);
 
-
 module.exports = router;

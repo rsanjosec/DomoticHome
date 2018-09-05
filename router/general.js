@@ -4,8 +4,21 @@
  */
 const express = require('express');
 const router = express.Router();
+const UserControler = require('../controllers/user');
 const auth = require("../middlewares/auth");
 
+//acceso a ala página de login
+
+router.get('/', function(req, res){
+  console.log("RUTA DE INICIO /");
+  res.format({
+    'text/html':function(){
+      res.status(200).render('login', { url: req.url, layout: 'simple', title:'Acceso - DomoticHome' });
+    }
+  });
+});
+
+router.post("/", UserControler.loginUser)
 
 router.get('/404', function(req, res, next){
     // trigger a 404 since no other middleware
@@ -27,17 +40,19 @@ router.get('/403', function(req, res, next){
   });
 
 
+
+
 ///Gestión de rutas
 //Error 404
   router.use(function(req, res, next){
-    res.status(404);
-
-    var data =   {
-        title: '404 - Página no encontrada'
-    }
+    res.status(404);  
     res.format({
       html: function () {
-        res.render('404', { url: req.url, layout: 'errors', title:'404 - Página no encontrada' })
+                  //404-> plantilla a renderizar
+                  //url-> captura la url de la solicitud
+                  //layout-> define el layout a representar
+                  //title-> titulo y encabezado de la página a representar
+        res.render('404', { url: req.url, layout: 'simple', title:'404 - Página no encontrada' })
       },
       json: function () {
         res.json({ error: 'Not found' })
@@ -47,6 +62,4 @@ router.get('/403', function(req, res, next){
       }
     })
   });
-
-
-  module.exports = router;
+ module.exports = router;

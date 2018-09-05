@@ -6,12 +6,20 @@
     <meta name="author" content="Ruben San Jose">
     <link rel="icon" href="../../../../favicon.ico">
 
-    <title>{{title}}</title>
+    <title>{{title}} | Ruta: {{url}}</title>
 
     <!-- Bootstrap core CSS -->
     <link href="/stylesheets/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Custom styles for this template -->
-    <link href="/stylesheets/dashboard.css" rel="stylesheet">
-    <link href="/stylesheets/styles.css" rel="stylesheet">
+     {{!-- // TODO:  en función de la url cargar uno u otro estilo  --}}
+    {{#equalsLength url 1}}
+    <script>console.log("longuitud 1");</script>
+      {{#compare url "==" "/"}}
+      <script>console.log("pinta los estilos");</script>
+      <link href="/stylesheets/signin.css" rel="stylesheet">
+      {{/compare}}
+    {{else}}
+          <link href="/stylesheets/dashboard.css" rel="stylesheet">
+          <link href="/stylesheets/styles.css" rel="stylesheet">
+    {{/equalsLength}}
   </head>

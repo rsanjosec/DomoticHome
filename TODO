@@ -26,7 +26,12 @@ Proyectos:
       ☐ implementar la visualización de dispositivos botones de alta, borrar , editar
       ☐ implementar la lógica de añadir, editar y borrar
 
-  ☐ Página de login para el acceso al panel de control 
+  ☐ Implementar la funcion de logout desde el botón que aparece en la cabecera.
+
+  ☐ Cifrar la password que se encuentra en claro mongo.(ya esta implementado el hash)
+
+  ✔ Página de login para el acceso al panel de control @done(18-09-05 02:27)
+    ☐ Implementar con hash
   
   ☐ configurar base de datos mongo(password)
 

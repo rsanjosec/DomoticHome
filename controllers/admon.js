@@ -10,15 +10,18 @@ function getHome(req, res) {
             {"firstName": "Peter", "lastName": "Jones"}
         ]
     }
-//render('nombre de la plantilla renderizar', datos que se pasan como parámetro)      
-res.render('home', data);
+    //render('nombre de la plantilla renderizar', datos que se pasan como parámetro)     
+
+    res.render('home', {  data: data});
 }
 
 
 
 
+
 module.exports = {
-    getHome  
+    getHome,
+      
 }
 
   

@@ -3,6 +3,41 @@ const User = require('../model/user');
 const service = require('../services');
 
 
+function loginUser(req, res) {
+
+    let usuario = req.body.mail;
+    let pass = req.body.password;
+    console.log("usuario"+ usuario+ " pass:"+ pass)
+
+    // User.findOne({ type: 'iphone' }).exec(function (err, adventure) {});
+    // find({ name: 'john', age: { $gte: 18 }}, function (err, docs) {});
+
+     User.findOne({ user_email: req.body.mail, user_password:req.body.password }, (err, user) => {
+         console.log("entra en la busque da de usuario");
+         if (err) { return res.status(500).send({ message: err }) }
+         if (!user) { return res.status(404).send({ message: "NO existe el usuario" }) }
+         console.log("accede a la aplicaión");
+         //console.dir(user);
+
+         res.status(200).send({ message: "login correcto" })
+     });
+
+    // User.findOneAndUpdate({ user_email: req.body.mail, user_password:req.body.password },{lastLogin:Date.now()}, (err, user) => {
+    //     console.log("entra en la busque da de usuario");
+    //     if (err) { return res.status(500).send({ message: err }) }
+    //     if (!user) { return res.status(404).send({ message: "NO existe el usuario" }) }
+    //     // console.log("accede a la aplicaión");
+    //     // console.dir(user);
+    //     console.log("antes de la redireccion");
+        
+    //     res.redirect("/admon");
+
+    //     //res.status(200).send({ message: "login correcto" })
+    // });
+
+     
+};
+
 function showAddUser(req, res, next) {
     var baseUrl = req.baseUrl;
 
@@ -64,6 +99,7 @@ function addUser(req, res) {
 
 };
 //para la autenticación del usuario
+// NOTE: se traspasa esta funcion con comportamiento similar a controllers/admon.js
 function login(req, res) {
     User.find({ email: req.body.email }, (err, user) => {
         if (err) { return res.status(500).send({ message: err }) }
@@ -73,7 +109,7 @@ function login(req, res) {
     })
 };
 
-
+//retorna un listado de los usuarios registrados en la aplicación
 function getUsers(req, res) {
     var baseUrl = req.baseUrl;
     let path = (req.path).slice(1);
@@ -134,5 +170,6 @@ module.exports = {
     showAddUser,
     login,
     deleteUser,
-    updateUser
+    updateUser,
+    loginUser
 }
