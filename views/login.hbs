@@ -1,24 +1,18 @@
-<h1>Example App: Home</h1>
-{{!Nested if and each loop}}
-{{#if employees}}
-<table class="table">
-    <thead>
-        <tr>
-            <td>FirstName</td>
-            <td>LastName</td>
-        </tr>
-    </thead>
-    <tbody>
-        {{/if}}    
-        {{#each employees}}
-        <tr>
-            <td>{{@index}}</td>
-            <td>{{firstName}}</td>
-            <td>{{lastName}}</td>
-        </tr>
-        {{/each}}
-        {{#if employees}}
-    </tbody>
-</table>
-{{/if}} 
 
+<form class="form-signin text-center border border-warning rounded" id="loginToApp" style="background-color:#fbffda" >
+    <h1 style="color:#FFA500;">Domotic home</h1>
+    <img class="img-thumbnail" src="images/home-xxl_r2_c2.png" alt="" width="150" height="150" style="margin: 25px 0px;">
+    <p class="h3 mb-3 font-weight-normal">Entrar en la aplicación</p>
+    <label for="inputEmail" class="sr-only">Email address</label>    
+    <input type="email" id="inputEmail" name="mail" class="form-control" placeholder="Email address" required autofocus>
+    <label for="inputPassword" class="sr-only">Password</label>
+    <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password" required>
+    {{!-- <div class="checkbox mb-3">
+        <label>
+            <input type="checkbox" value="remember-me"> Recordar
+        </label>
+    </div> --}}
+    <button class="btn btn-lg btn-warning btn-block" type="submit">Acceder</button>
+    <div id="contResultText"></div>
+    <p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
+</form>

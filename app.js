@@ -9,6 +9,7 @@ const exphbs = require('express-handlebars');
 
 var helpers = require('handlebars-helpers');
 var eq = helpers.comparison();
+var equalsLength = helpers.array();
 var compare = helpers.comparison();
 
 
@@ -21,6 +22,8 @@ const path = require('path');
 //const multer = require("multer");
 
 const app = express();
+
+
 //gestion de rutas en general(errores)
 const rtGen = require('./router/general')
 //rutas para la api
