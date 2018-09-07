@@ -20,7 +20,7 @@ Proyectos:
       ✔ implementar la visualización de dispositivos botones de alta, borrar , editar @done(18-08-23 18:28)
       ✔ implementar la lógica de añadir, editar y borrar @done(18-08-25 15:58)
       ☐ tooltip para plegar /desplegar el mensaje de retorno
-      ☐ validacion de cliente de los formularios de alta y edición
+      ☐ validacion de cliente de los formularios de alta y edición con javascript
 
     ☐ panel de administracion - estadísticas    
       ☐ implementar la visualización de dispositivos botones de alta, borrar , editar
