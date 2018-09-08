@@ -1,5 +1,5 @@
 class Fecha{
-    constructor(){
+    constructor(this){
         var fecha = new Date();
         this.dia = fecha.getFullYear();
         this.mes = fecha.getMonth();

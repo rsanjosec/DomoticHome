@@ -5,7 +5,6 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "stop": "pkill --signal SIGINT domoticHome",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -44,7 +43,8 @@
     "gulp": "^3.9.1",
     "gulp-nodemon": "^2.2.1",
     "gulp-sass": "^4.0.1",
-    "nodemon": "^1.18.3"
+    "nodemon": "^1.18.3",
+    "type-of-is": "^3.5.1"
   },
   "optionalDependencies": {}
 }

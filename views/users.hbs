@@ -3,9 +3,9 @@
         <h1>Listado de Usuarios</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
             <div class="btn-group mr-2">
-                 <a class="btn btn-sm btn-outline-primary" href="/admon/add-user" role="button"> Añadir un nuevo usuario</a>                              
+                <a class="btn btn-sm btn-outline-primary" href="/admon/add-user" role="button"> Añadir un nuevo usuario</a>
             </div>
-          
+
         </div>
     </div>
 
@@ -27,7 +27,9 @@
                     <th scope="col">#</th>
                     <th scope="col">Nombre</th>
                     <th scope="col">Apellidos</th>
-                    <th scope="col">Email</th>                                    
+                    <th scope="col">Email</th>
+                    <th scope="col">F. Alta</th>
+                    <th scope="col">F. Acceso</th>
                     <th scope="col">Acción</th>
                 </tr>
             </thead>
@@ -39,7 +41,9 @@
                     </th>
                     <td data-field="user_name">{{user_name}}</td>
                     <td data-field="user_surname">{{user_surname}}</td>
-                    <td data-field="user_email">{{user_email}}</td>                   
+                    <td data-field="user_email">{{user_email}}</td>
+                    <td>{{dateRegister}}</td>
+                    <td>{{lastLogin}}</td>
                     <td>
                         <button id="btn_delete_{{@index}}" type="button" class="btn btn-danger btn-sm btnDelete">
                             <span data-feather="trash"></span>
@@ -52,10 +56,7 @@
                     </td>
                 </tr>
                 {{/each}}
-
             </tbody>
         </table>
     </div>
-
-
 </main>

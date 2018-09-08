@@ -1,7 +1,10 @@
 'use strict'
 const User = require('../model/user');
 const service = require('../services');
+//const dateFormat = require('dateformat');
+const moment = require('moment');
 
+var Type = require('type-of-is');
 
 function loginUser(req, res) {
 
@@ -109,22 +112,32 @@ function login(req, res) {
     })
 };
 
+
+
 //retorna un listado de los usuarios registrados en la aplicación
 function getUsers(req, res) {
     var baseUrl = req.baseUrl;
     let path = (req.path).slice(1);
+    moment.locale('es');
     User.find({}, (err, users) => {
 
         if (baseUrl == "/admon") {
             console.log("Entra en retornar todos los dispositivos.(admon)");
             if (err) { return res.status(500).send({ message: `Error al realizar la petición: ${error}` }); }
             if (!users) { return res.status(404).send({ message: 'Actualmente no existen usuarios dados de alta en el sistema.' }); }
-
+            //sobreescritura del objeto para poder cambiar sus propiedades    
+            let users2 = JSON.parse(JSON.stringify(users));
+            users2.forEach(user => {
+                user['dateRegister']=moment( user['dateRegister'] ).format('LLLL');;
+                user['lastLogin']=moment( user['lastLogin'] ).format('LLLL');;
+            });
             var data = {
                 title: 'Listado de usuarios',
-                users: users,
+                users: users2,
                 path: path
             }
+
+
             res.render('users', data);
         }
     });
