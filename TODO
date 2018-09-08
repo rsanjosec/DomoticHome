@@ -6,7 +6,8 @@ Proyectos:
   ☐ securizar la conexión del broker mosquito con ssl
     https://www.manolodominguez.com/2017/02/05/instalando-un-broker-mqtt-domestico-ii/
 
-  ☐ con mosquito(cliente) realizar un bucle para alimentar el subcriptor
+  ✔ con mosquito(cliente) realizar un bucle para alimentar el subcriptor @done(18-09-01 17:37)
+
   ☐ Panel de administración
     ☐ Con helpers de handlebars marcar la ruta de la página en la que nos encontramos.
 
