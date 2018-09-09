@@ -7,5 +7,6 @@ for (( n = 0; n < 5000; ++n )); do
     pub=`mosquitto_pub -d -h localhost -p 1993 -t medicion/consumo -m "{\"device_name\":\"cocina_1\", \"val\":$randomDecimalNumber, \"time\":\"$timestamp\"}"`
     # echo $pub
     #detiene la ejecución durante el tiempo preestablecido
-    sleep .5
+    #sleep .5
+    sleep 1
 done

@@ -24,6 +24,4 @@ router.get("/add-user", UserControler.showAddUser);
 //para las Estadísticas
 router.get("/stats", StatsControler.getStats);
 
-
-
 module.exports = router;

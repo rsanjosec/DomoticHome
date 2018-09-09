@@ -18,6 +18,8 @@ router.get('/', function(req, res){
   });
 });
 
+
+
 router.post("/", UserControler.loginUser)
 
 router.get('/404', function(req, res, next){
