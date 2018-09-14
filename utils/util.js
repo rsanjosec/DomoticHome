@@ -5,7 +5,11 @@
  */
 
 'use strict'
-
+/**
+ *
+ *
+ * @class Fecha
+ */
 class Fecha {
     constructor() {
         var fecha = new Date();
@@ -24,6 +28,4 @@ class Fecha {
     }
 }
 
-module.exports = Fecha
-
-     
+module.exports = Fecha;

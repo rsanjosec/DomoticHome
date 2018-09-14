@@ -13,48 +13,22 @@ const cf_color = require("../config/console_colors");
 
 function insertDeviceData(req, res) {
     console.log("Entar en dar de alta un dispositivo");
-    //pinta lo que le llega en el body del mensaje
-
-
-    console.log("device description:" + req.device_name);
-
     //Instanciamos un nuevo objeto de tipo Device
     let device = new DeviceData();
-
     device.device_name = req.body.device_name;
     device.val = req.body.val;
-
-    // console.log(cf_color.FgRed + '%s' + cf_color.Reset, "--------------");
-    // console.dir(device);
-    // console.log(cf_color.FgRed + '%s' + cf_color.Reset, "--------------");
-
-
-    // console.log(cf_color.FgCyan + '%s' + cf_color.Reset, "device_name: " + req.body.device_name);
-    // console.log(cf_color.FgCyan + '%s' + cf_color.Reset, "val: " + req.body.val);
-
+    //guardado sobre la base de datos
     device.save((err, deviceStored) => {
-        console.log("entra dentro de device.save");
-        
         //en caso de error se muestra un mensaje
         if (err) return res.status(500).send({ message: `Se ha procucido un error al guardar el dispositivo. Error ${err}` });
         res.status(200).send({ device: deviceStored });
-        // if (err) { console.log("ERROR");}
-        console.log("SE GUARDARÍA EN BD");
-
     });
 }
 
 
 
-
 function insertDeviceDataDos(data) {
-
     console.log("Entar controlador de insertar los datos de un dispositivo");
-    //pinta lo que le llega en el body del mensaje
-    console.log(data);
-
-    // Save.saveRequestToFile(data);    
-
     //Instanciamos un nuevo objeto de tipo Device
     let device = new DeviceDataSchema();
     // let device_name = data.device_name;
@@ -63,20 +37,13 @@ function insertDeviceDataDos(data) {
     let val = 0.789;
     device.device_name = device_name;
     device.val = val;
-    console.log(cf_color.FgCyan + '%s' + cf_color.Reset, "insertDeviceDataDos - device_name: " + device_name);
-    console.log(cf_color.FgCyan + '%s' + cf_color.Reset, "insertDeviceDataDos - val : " + val);
-
+    //console.log(cf_color.FgCyan + '%s' + cf_color.Reset, "insertDeviceDataDos - val : " + val);
 
     try {
-        console.log(cf_color.FgRed + '%s' + cf_color.Reset, "ENTRA");
         device.save((err, deviceStored) => {
-            console.log("222: ");
             //en caso de error se muestra un mensaje
-            console.log("entra dentro de device data");
-
             if (err) { console.log("Se ha producido un error"); console.log(err); }
             console.log(cf_color.FgMagenta + '%s' + cf_color.Reset, " Se inserta el registro ");
-            console.log(deviceStored);
             // res.status(200).send({devicedata: deviceStored});
 
 

@@ -7,7 +7,11 @@ const fs = require('fs');
 const Fecha = require("./util")
 const cf_color = require("../config/console_colors")
 
-
+/**
+ *Guarda a fichero la solicitud request que recibe por parámetro
+ *
+ * @param {*} req
+ */
 function saveRequestToFile(req){
 
     let fecha = new Fecha();
@@ -16,7 +20,6 @@ function saveRequestToFile(req){
     let stringLog = "\r\n ---------------" + registroTiempo + " | " +  printIp + "------------------------ \r\n";
     stringLog += JSON.stringify(req.body, null, 4);   
     stringLog += "\n --------------------------------------- \n";
-    //muestra por consola el registro que se 
 
     let result = "";
     let getBody = req.body;
@@ -27,9 +30,6 @@ function saveRequestToFile(req){
     }
     console.log(cf_color.FgBlue+'%s'+cf_color.Reset, result);
     
-   
-    //res.json(req.body)
-    // fs.writeFile 
     fs.appendFile("/home/ruben/data/node/prueba/output/salida_obj.txt", stringLog, (err)=>{
         if(err){             
             console.error(err);

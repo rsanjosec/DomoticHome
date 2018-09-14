@@ -1,6 +1,6 @@
 'use strict'
 /** 
- * Entada de la aplaicación
+ * Entada a la  aplicación
 */
 
 const mongoose = require("mongoose")
@@ -24,17 +24,13 @@ mongodb://Ip_base_de_datos/puerto/nombre_de_la_base_datos
 app.on('listening',function(){
     console.log('ok, server is running');
 });
-console.log("antes de utilizar listen");
+
+
 app.listen(cf.web_server_port, function(){
-    console.log("----------------------------------------");
+    
     var fecha = new Fecha();
     console.log(cf_color.FgYellow+'%s'+cf_color.Reset,  "Servidor iniciado en puerto " + cf.web_server_port+".  "+ fecha.getFecha() + "  " + fecha.getTiempo() );
-    // cadena de conexion
-    // mongodb:// define el tipo de base de datos con alque se conectara, para este caso mongodb
-    // localhost host/ip donde esta alojada la base de adtos
-    // 27017 puerto con el que se establece la conexion contra la base de datos.
-    // devices nombre de la base de datos
-     mongoose.connect(cf.db_conection,{ useNewUrlParser: true }, (err, res)=>{
+    mongoose.connect(cf.db_conection,{ useNewUrlParser: true }, (err, res)=>{
          if(err){
              console.log("Se ha producido un error al conectar con la basde de datos");        
              throw err;

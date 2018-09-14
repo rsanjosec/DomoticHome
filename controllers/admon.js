@@ -1,4 +1,3 @@
-
 'use strict'
 //retorna la platilla de visualización de la home de administración
 function getHome(req, res) {
@@ -11,17 +10,11 @@ function getHome(req, res) {
         ]
     }
     //render('nombre de la plantilla renderizar', datos que se pasan como parámetro)     
-
     res.render('home', {  data: data});
 }
 
-
-
-
-
 module.exports = {
-    getHome,
-      
+    getHome,      
 }
 
   

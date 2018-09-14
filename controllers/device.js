@@ -14,8 +14,6 @@ function getDevice(req, res) {
     //recuperamos el id del dispositivo a mostrar
     console.log("entra en retorna un elemento");
     Save.saveRequestToFile(req);
-    
-
     Device.findById(req.params.id_device, (err, device) => {
         //si se produce un error
         if (err) { return res.status(500).send({ message: `Error al buscar el dispositivo: ${error}` }); }
@@ -23,64 +21,49 @@ function getDevice(req, res) {
         if (!device) { return res.status(404).send({ message: `No se encuenta el dispositivo solicitado` }); }
         //si todo ok se retorna el dispositivo      
         return res.status(200).send({ device });
-
-
     });
 }
 
 
 function showAddDevice(req, res) {
-    var baseUrl =  req.baseUrl;
+    var baseUrl = req.baseUrl;
     console.log("baseUrl de showAddDevice");
     console.log(baseUrl);
     let path = (req.path).slice(1);
-    if(baseUrl=="/admon"){
-        var data =   {
+    if (baseUrl == "/admon") {
+        var data = {
             title: 'Insertar un nuevo dispositivo',
-            path: path           
+            path: path
         }
         res.render('deviceAdd', data);
     }
-
 }
 
 /*
 Retorna todos los dispositivos por solicitud get(el listado de dispositivos)
 */
 function getDevices(req, res) {
-
-    console.log("PINTA baseUrl");
-    console.dir(req.baseUrl);
-    var baseUrl =  req.baseUrl;
+    var baseUrl = req.baseUrl;
     let path = (req.path).slice(1);
-    Device.find({}, (err, devices) => {     
-
-        if(baseUrl=="/admon"){
+    Device.find({}, (err, devices) => {
+        if (baseUrl == "/admon") {
             console.log("Entra en retornar todos los dispositivos.(admon)");
             if (err) { return res.status(500).send({ message: `Error al realizar la petición: ${error}` }); }
             if (!devices) { return res.status(404).send({ message: 'Actualmente no existen dispositivos dados de alta en el sistema.' }); }
-            //console.dir(devices);
-            //res.status(200).render( { devices });
-            
-          //console.dir(devices);
-            
-            var data =   {
+            var data = {
                 title: 'Dashboard',
                 devices: devices,
                 path: path
             }
             res.render('devices', data);
-            
+
         }
-        if(baseUrl=="/api"){
+        if (baseUrl == "/api") {
             console.log("Entra en retornar todos los dispositivos.(api)");
             if (err) { return res.status(500).send({ message: `Error al realizar la petición: ${error}` }); }
             if (!devices) { return res.status(404).send({ message: 'Actualmente no existen dispositivos dados de alta en el sistema.' }); }
-            //console.dir(devices);
             res.status(200).send({ devices });
         }
-
-      
     });
 }
 
@@ -120,18 +103,10 @@ function deleteDevice(req, res) {
 // para multipart/form-data:  app.post('/items', upload.array(), (req, res, next)=>{
 
 function insertDevice(req, res) {
-    
-    console.log("Entar en dar de alta un dispositivo");    
-    console.dir(req.baseUrl);
-    //pinta lo que le llega en el body del mensaje
-    console.log(req.body)
+    console.log("Entar en dar de alta un dispositivo");
     Save.saveRequestToFile(req);
-
-    console.log("device description:" + req.body.description);
-
     //Instanciamos un nuevo objeto de tipo Device
     let device = new Device();
-
     device.device_name = req.body.device_name;
     device.mac_address = req.body.mac_address;
     device.place = req.body.place;

@@ -19,7 +19,6 @@ const Util = require("../utils/stats")
 
 //retorna la platilla de visualización de la home de administración
 function getStats(req, res) {
-
     var dataSeries = {
         title: 'Estadísticas',
         data: [{
@@ -59,10 +58,8 @@ function getStats(req, res) {
 function getStatByDataRange(req, res) {
     console.log("consulta de fecha sobre dispositivos");
     //el formato de la fecha debe de ser del tipo "2012-04-23T18:25:43.511Z"
-
     console.log(req.startDate);
     console.log(req.endDate);
-
     req.startDate = "5b9900e3f7f90d14bf95b16b";
     req.endDate = "5b9900ebf7f90d14bf95b173";
     req.deviceName = ""
@@ -82,7 +79,6 @@ function getStatByDataRange(req, res) {
  */
 function getStatFromDate(req, res) {
     console.log("consulta de todos los dispositivos");
-
     Stats.find({ _id: { $gte: mongoose.Types.ObjectId(req.startDate) } }, (err, devicedata) => {
         if (err) { return res.status(500).send({ message: err }) }
         if (!devicedata) { return res.status(404).send({ message: "NO hay datos para este dispositivo" }) }
@@ -115,7 +111,6 @@ function getStatDeviceToday(req, res) {
         console.dir(arrDatos);
         responseData.deviceName=req.deviceName;
         responseData.arrDatos=arrDatos;
-
         return res.status(200).send(responseData);
         //return res.status(200).send({ devicedata })
     })

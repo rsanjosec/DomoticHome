@@ -1,5 +1,9 @@
-// NOTE: contemplar la opción de guardar muchos documentos de golpe  https://www.w3schools.com/nodejs/nodejs_mongodb_insert.asp
 
+/**
+ * @file Cliente mqtt para la inserción de los registros remitidos por los dispositivos IoT
+ *  
+ * @author Rubén San José Cruces 
+ */
 'use strict'
 const mongodb = require('mongodb');
 const mqtt = require('mqtt');
@@ -14,21 +18,28 @@ var client = mqtt.connect(mqttUri);
 var mongoUri = 'mongodb://' + config.mongodb.hostname + ':' + config.mongodb.port + '/' + config.mongodb.database;
 
 //el cliente se suscribe a la lista definida en la variable de configuración
-
 /**
- * 
+ * Establece una conexión con el browker mqtt
  */
 client.on('connect', function () {
     client.subscribe(config.mqtt.namespace);
     console.log(cf_color.FgGreen + '%s' + cf_color.Reset, "Cliente mqtt a la escucha ...");
 });
 
+/**
+ * si se produce un error se notifica por consola
+ */
 client.on('error', function (err) {
     console.log(cf_color.FgRed + '%s' + cf_color.Reset, "Se ha producido un error en el cliente mqtt");
     console.log(err);
 });
 
+
 let contador = 0;
+/**
+ * Establece una conexion con la base de datos mongo e inserta registro
+ * se pinta por consola cada minuto un registro  de muestra
+ */
 mongodb.MongoClient.connect(mongoUri, { useNewUrlParser: true }, function (error, database) {
     if (error != null) { throw error; }
 
@@ -43,8 +54,9 @@ mongodb.MongoClient.connect(mongoUri, { useNewUrlParser: true }, function (error
         if (contador % 60 === 0) { console.log(deviceData); }
         contador++;
 
-        //se procede al insertado del registro sobre la coleción
+        //se procede al insertado del registro sobre la colección
         dbo.collection(config.mongodb.collection).insertOne(deviceData, function (error, result) {
+            //si se produce un error en la inserción se muestra por consola
             if (error != null) {
                 console.log(cf_color.FgRed + '%s' + cf_color.Reset, "Se ha producido un error en la insercion del registro");
                 console.log("ERROR: " + error);
