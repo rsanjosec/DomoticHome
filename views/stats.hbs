@@ -1,0 +1,128 @@
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1>{{title}}</h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+            <div class="btn-group mr-2">
+
+            </div>
+
+        </div>
+    </div>
+
+    <div id="contData">
+        <!-- capa de presentacion estadística -->
+        {{!-- <div id="container"></div> --}}
+
+        <div id="container" style="height: 400px; min-width: 310px"></div>
+        <hr>
+        {{!-- <div id="current24dyn"></div> --}}
+
+        <form>
+            Desde:
+            <input type="date" name="fStart">
+            Hasta:
+            <input type="date" name="fEnd">
+        </form>
+
+        {{#ifEquals "a" "a"}}
+        cadena es igual
+        {{/ifEquals}}
+
+        {{!--
+        <script src="/javascript/stats-current-dyn.js"></script> --}}
+
+        {{!--
+        <script>
+            Highcharts.chart('container', {
+                title: {
+                    text: 'Consumo de dispositivos a (Fecha actual)'
+                },
+                xAxis: {
+                    type: 'datetime',
+                    dateTimeLabelFormats: {
+                        hour: '%I:%M %P',
+                        day: '%H:%M %P'
+                    }
+                }
+            });
+
+
+        </script>
+        --}}
+
+        <!-- ejemplo de muestra -->
+        {{!--
+        <script>
+            Highcharts.chart('container', {
+                title: {
+                    text: 'Consumo de dispositivos a (Fecha actual)'
+                },
+                subtitle: {
+                    text: 'Source: thesolarfoundation.com'
+                },
+                yAxis: {
+                    title: {
+                        text: 'Consumo en (W)'
+                    }
+                },
+                legend: {
+                    layout: 'vertical',
+                    align: 'right',
+                    verticalAlign: 'middle'
+                },
+                plotOptions: {
+                    series: {
+                        label: { connectorAllowed: false },
+                        pointStart: 2010
+                    }
+                },
+                series: {{{ json dataSeries.data }}},
+
+                responsive: {
+                    rules: [{
+                        condition: {
+                            maxWidth: 500
+                        },
+                        chartOptions: {
+                            legend: {
+                                layout: 'horizontal',
+                                align: 'center',
+                                verticalAlign: 'bottom'
+                            }
+                        }
+                    }]
+                }
+            });
+        </script> --}}
+        <script>
+            $.getJSON('http://localhost:8081/api/stats/device-today', function (data) {
+                console.log("---datos retornados desde JQUERY ");
+                console.dir(data);
+                Highcharts.stockChart('container', {
+
+                    rangeSelector: {
+                        selected: 1
+                    },
+
+                    title: {
+                        text: 'Consumo de dispositivo en el día'
+                    },
+                    xAxis: {
+                        type: 'datetime'
+                    },
+                    series: [{
+                        name: 'AAPL',
+                        data: data.arrDatos,
+                        lineWidth: 1,
+                        tooltip: {
+                            valueDecimals: 3
+                        }
+                    }]
+                });
+            });
+        </script>
+
+
+    </div>
+
+</main>

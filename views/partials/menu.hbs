@@ -1,5 +1,5 @@
 <nav class="col-md-2 d-none d-md-block bg-light sidebar">
-  <h1>RUTA ES: {{ path }}</h1>
+  {{!-- <h1>RUTA ES: {{ path }}</h1> --}}
 
   <div class="sidebar-sticky">
     <ul class="nav flex-column">
@@ -56,10 +56,10 @@
       </li>
 
       <li class="nav-item">
-        {{#compare path "==" "charts"}}
-            <a class="nav-link menu-item-selected" href="/admon/charts">
+        {{#compare path "==" "stats"}}
+            <a class="nav-link menu-item-selected" href="/admon/stats">
               {{else}}
-              <a class="nav-link" href="/admon/charts">
+              <a class="nav-link" href="/admon/stats">
               {{/compare}}        
           <span data-feather="bar-chart-2"></span>
           Estadísticas

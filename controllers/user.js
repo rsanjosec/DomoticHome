@@ -3,8 +3,8 @@ const User = require('../model/user');
 const service = require('../services');
 //const dateFormat = require('dateformat');
 const moment = require('moment');
-
-var Type = require('type-of-is');
+//NOta: PARA depuracion
+const Type = require('type-of-is');
 
 function loginUser(req, res) {
 

@@ -8,6 +8,7 @@ const DeviceController = require('../controllers/device');
 const AdmonController = require('../controllers/admon');
 const DeviceDataController = require('../controllers/device-data');
 const UserControler = require('../controllers/user');
+const StatsControler = require('../controllers/stats');
 const auth = require("../middlewares/auth");
 
 
@@ -20,5 +21,7 @@ router.get("/add-device", DeviceController.showAddDevice);
 router.get("/users", UserControler.getUsers);
 //muestra la página de añadir un usuario
 router.get("/add-user", UserControler.showAddUser);
+//para las Estadísticas
+router.get("/stats", StatsControler.getStats);
 
 module.exports = router;

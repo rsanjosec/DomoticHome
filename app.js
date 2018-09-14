@@ -52,34 +52,16 @@ app.use(express.static(path.join(__dirname, 'public')));
 console.log("__dirname" + __dirname);
 
 
-
-// app.engine('hbs', exphbs({
-//     extname: '.hbs', 
-//     defaultLayout: 'default', 
-//     helpers: {
-//         foo: function () { return 'FOO!'; },
-//         ifEquals: function(arg1, arg2, opts) { 
-//             if (arg1 == arg2) {
-//                 return opts.fn(this)
-//             } else {
-//                 return opts.inverse(this)
-//             }
-//          },
-//         bar: function () { return 'BAR!'; }
-//     },
-//     layoutsDir: __dirname + '/views/layouts',
-//     partialsDir  : [
-//         //  path to your partials
-//         __dirname + '/views/partials',
-//     ]
-// }));
-
 var hbs = exphbs.create({
     extname: '.hbs', 
     defaultLayout: 'default',
     helpers: {
         foo: function () { return 'FOO!'; },
-        bar: function () { return 'BAR!'; }
+        bar: function () { return 'BAR!'; },
+        json: function (context) { return JSON.stringify(context); } ,
+        ifEquals: function(arg1, arg2, options) {
+            return (arg1 == arg2) ? options.fn(this) : options.inverse(this);
+        },
     },    
     layoutsDir: __dirname + '/views/layouts',
     partialsDir  : [
@@ -87,12 +69,10 @@ var hbs = exphbs.create({
     ]
 });
 
-
 app.engine('hbs', hbs.engine);
 app.set('view engine', 'hbs');
 
-//app.set('view engine', 'hbs');
-
+//definicion de las rutas creadas en Router
 app.use('/api', rtApi);
 app.use('/admon', rtAdm);
 app.use('/', rtGen);
