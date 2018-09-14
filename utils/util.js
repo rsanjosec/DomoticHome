@@ -1,5 +1,13 @@
-class Fecha{
-    constructor(){
+/**
+ * @file Utilidades varias
+ *  
+ * @author Rubén San José Cruces 
+ */
+
+'use strict'
+
+class Fecha {
+    constructor() {
         var fecha = new Date();
         this.dia = fecha.getFullYear();
         this.mes = fecha.getMonth();
@@ -8,17 +16,14 @@ class Fecha{
         this.min = fecha.getMinutes();
         this.seg = fecha.getSeconds();
     }
-    getFecha(){
-        return this.anio +"/"+ this.mes +"/"+ this.dia ;
-    } 
-    getTiempo(){
-        return this.hora +":"+ this.min +":"+ this.seg ;
+    getFecha() {
+        return this.anio + "/" + this.mes + "/" + this.dia;
     }
-
+    getTiempo() {
+        return this.hora + ":" + this.min + ":" + this.seg;
+    }
 }
 
+module.exports = Fecha
 
-module.exports = Fecha;
-
-
-
+     

@@ -1,14 +1,15 @@
 #!/bin/bash
-
+printf "*****hello\nworld\n****"
 timestamp=$(date +%s)
-echo $timestamp
+echo '1= ' $timestamp
 
 timestamp=$( date +%T )
-echo $timestamp
+echo '2= ' $timestamp
 
 timestamp=$(date +%s%N)
-echo $timestamp | cut -b1-13
+echo '3= ' $timestamp | cut -b1-13
 
+echo '4= ' $timestamp 
 # timestampdos = $timestamp | cut -b1-13
 echo '-------'
 # echo $timestampdos/1000000

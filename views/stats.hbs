@@ -1,42 +1,68 @@
 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1>Listado de Usuarios</h1>
+        <h1>{{title}}</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
             <div class="btn-group mr-2">
-                <a class="btn btn-sm btn-outline-primary" href="/admon/add-user" role="button"> Añadir un nuevo usuario</a>
+
             </div>
 
         </div>
     </div>
 
     <div id="contData">
-        <h1>Estadísticas</h1>
-        <hr>
-        <div id="container"></div>
-        <hr>
+        <!-- capa de presentacion estadística -->
+        {{!-- <div id="container"></div> --}}
 
-        <h3>a5</h3>
-       {{#ifEquals "a" "a"}}
-           cadena es igual
+        <div id="container" style="height: 400px; min-width: 310px"></div>
+        <hr>
+        {{!-- <div id="current24dyn"></div> --}}
+
+        <form>
+            Desde:
+            <input type="date" name="fStart">
+            Hasta:
+            <input type="date" name="fEnd">
+        </form>
+
+        {{#ifEquals "a" "a"}}
+        cadena es igual
         {{/ifEquals}}
-        <pre>{{{ json dataSeries.data }}}</pre>
 
+        {{!--
+        <script src="/javascript/stats-current-dyn.js"></script> --}}
+
+        {{!--
         <script>
-            //console.log("----datos---");
-            // let datos = {{{json dataSeries.data}}};
-            //console.log(datos);
-
             Highcharts.chart('container', {
-
                 title: {
-                    text: 'Solar Employment Growth by Sector, 2010-2016'
+                    text: 'Consumo de dispositivos a (Fecha actual)'
+                },
+                xAxis: {
+                    type: 'datetime',
+                    dateTimeLabelFormats: {
+                        hour: '%I:%M %P',
+                        day: '%H:%M %P'
+                    }
+                }
+            });
+
+
+        </script>
+        --}}
+
+        <!-- ejemplo de muestra -->
+        {{!--
+        <script>
+            Highcharts.chart('container', {
+                title: {
+                    text: 'Consumo de dispositivos a (Fecha actual)'
                 },
                 subtitle: {
                     text: 'Source: thesolarfoundation.com'
                 },
                 yAxis: {
                     title: {
-                        text: 'Number of Employees'
+                        text: 'Consumo en (W)'
                     }
                 },
                 legend: {
@@ -46,29 +72,57 @@
                 },
                 plotOptions: {
                     series: {
-                        label: { connectorAllowed: false},
+                        label: { connectorAllowed: false },
                         pointStart: 2010
                     }
                 },
                 series: {{{ json dataSeries.data }}},
 
-            responsive: {
-                rules: [{
-                    condition: {
-                        maxWidth: 500
-                    },
-                    chartOptions: {
-                        legend: {
-                            layout: 'horizontal',
-                            align: 'center',
-                            verticalAlign: 'bottom'
+                responsive: {
+                    rules: [{
+                        condition: {
+                            maxWidth: 500
+                        },
+                        chartOptions: {
+                            legend: {
+                                layout: 'horizontal',
+                                align: 'center',
+                                verticalAlign: 'bottom'
+                            }
                         }
-                    }
-                }]
-            }
+                    }]
+                }
+            });
+        </script> --}}
+        <script>
+            $.getJSON('http://localhost:8081/api/stats/device-today', function (data) {
+                console.log("---datos retornados desde JQUERY ");
+                console.dir(data);
+                Highcharts.stockChart('container', {
 
+                    rangeSelector: {
+                        selected: 1
+                    },
+
+                    title: {
+                        text: 'Consumo de dispositivo en el día'
+                    },
+                    xAxis: {
+                        type: 'datetime'
+                    },
+                    series: [{
+                        name: 'AAPL',
+                        data: data.arrDatos,
+                        lineWidth: 1,
+                        tooltip: {
+                            valueDecimals: 3
+                        }
+                    }]
+                });
             });
         </script>
+
+
     </div>
 
 </main>

@@ -5,7 +5,8 @@
 const express = require('express');
 const router = express.Router();
 const DeviceController = require('../controllers/device');
-const DeviceDataController = require('../controllers/device-data');
+//const DeviceDataController = require('../controllers/device-data');
+const StatsControler = require('../controllers/stats')
 const UserControler = require('../controllers/user');
 const auth = require("../middlewares/auth");
 
@@ -32,8 +33,9 @@ router.delete("/device/:device_id", DeviceController.deleteDevice);
 // añade un dispositivo
 router.post('/device', DeviceController.insertDevice);
 
+//DESACTIVADA ESTA OPCIÓN POR PROBLEMAS EN EN MÉTODO .SAVE() DE MONGOOSE
 //inserta datos de un dispositivo
-router.post('/device-data', DeviceDataController.insertDeviceData);
+//router.post('/device-data', DeviceDataController.insertDeviceData);
 
 // *****RUTAS PARA EL USUARIO ******
 //rutas para usuario
@@ -43,6 +45,13 @@ router.post('/user', UserControler.addUser);
 router.post("/login", UserControler.login);
 router.delete("/user/:user_id", UserControler.deleteUser);
 router.put("/user/:user_id", UserControler.updateUser);
+
+// *****RUTAS PARA LAS ESTADÍSTICAS ******
+router.get("/stats", StatsControler.getStatByDataRange);
+router.post("/stats", StatsControler.getStatByDataRange);
+router.get("/stats/device-today", StatsControler.getStatDeviceToday);
+
+
 
 //acceso a las rutas privadas
 router.get("/private", auth.isUserAuth, (req, res) => {
