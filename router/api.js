@@ -1,7 +1,12 @@
-'use strict'
+
 /**
- * Rutas de  acceso a las diversas entradas de la aplicación
+ * @file Especificación de rutas adminitidas para la API-REST 
+ *  
+ * @author Rubén San José Cruces 
  */
+
+'use strict'
+
 const express = require('express');
 const router = express.Router();
 const DeviceController = require('../controllers/device');

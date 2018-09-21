@@ -1,14 +1,41 @@
-'use strict'
 /**
- * COntrolador de las soliciticitudes referentes a la API de la aplicación
+ * @file Métodos para inserción borrado y actualización de dispositivos 
+ *  
+ * @author Rubén San José Cruces 
  */
 
+'use strict'
 //importación del esquema de dispositivo
 const Device = require('../model/device')
 const Save = require('../utils/log_save')
-/*
-Busca un dispositivo por identificador que se le pasa por parámetro GET
-*/
+
+
+/**
+ * Pinta la pantalla de anadir dispositivos
+ *
+ * @param {*} req
+ * @param {*} res
+ */
+function showAddDevice(req, res) {
+    var baseUrl = req.baseUrl;
+    console.log("baseUrl de showAddDevice");
+    console.log(baseUrl);
+    let path = (req.path).slice(1);
+    if (baseUrl == "/admon") {
+        var data = {
+            title: 'Insertar un nuevo dispositivo',
+            path: path
+        }
+        res.render('deviceAdd', data);
+    }
+}
+
+/**
+ * (API-REST) Busca un dispositivo por identificador que se le pasa por parámetro GET
+ *
+ * @param {*} req
+ * @param {*} res
+ */
 function getDevice(req, res) {
     //retorna un código 200 http y responde con un mensaje de tipo json
     //recuperamos el id del dispositivo a mostrar
@@ -25,23 +52,12 @@ function getDevice(req, res) {
 }
 
 
-function showAddDevice(req, res) {
-    var baseUrl = req.baseUrl;
-    console.log("baseUrl de showAddDevice");
-    console.log(baseUrl);
-    let path = (req.path).slice(1);
-    if (baseUrl == "/admon") {
-        var data = {
-            title: 'Insertar un nuevo dispositivo',
-            path: path
-        }
-        res.render('deviceAdd', data);
-    }
-}
-
-/*
-Retorna todos los dispositivos por solicitud get(el listado de dispositivos)
-*/
+/**
+ * Retorna todos los dispositivos por solicitud get(el listado de dispositivos)
+ *
+ * @param {*} req
+ * @param {*} res
+ */
 function getDevices(req, res) {
     var baseUrl = req.baseUrl;
     let path = (req.path).slice(1);
@@ -67,7 +83,13 @@ function getDevices(req, res) {
     });
 }
 
-//actualiza valor del dispositivo[id_disp, valor]
+
+/**
+ * Actualiza valor del dispositivo[id_disp, valor]
+ *
+ * @param {*} req
+ * @param {*} res
+ */
 function updateDevice(req, res) {
     console.log("Entra por actualizacion");
     Device.findByIdAndUpdate(req.params.device_id, req.body, (err, device) => {
@@ -81,7 +103,12 @@ function updateDevice(req, res) {
     });
 }
 
-//elimina, borra un dispositivo
+/**
+ * Elimina, borra un dispositivo
+ *
+ * @param {*} req
+ * @param {*} res
+ */
 function deleteDevice(req, res) {
     console.log("controller Entra en delete " + req.params.device_id);
     Device.findById(req.params.device_id, (err, device) => {
@@ -100,8 +127,13 @@ function deleteDevice(req, res) {
     });
 }
 
-// para multipart/form-data:  app.post('/items', upload.array(), (req, res, next)=>{
-
+/**
+ * Inserta un nuevo dispositivo
+ *
+ * @param {*} req
+ * @param {*} res
+ * @return {Response} Mensaje de éxito o error a la hora de insertar el dispositivo
+ */
 function insertDevice(req, res) {
     console.log("Entar en dar de alta un dispositivo");
     Save.saveRequestToFile(req);

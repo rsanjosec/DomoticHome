@@ -50,28 +50,38 @@ function getStats(req, res) {
 
 
 /**
- *  Retorna todos los dispositivos para un rango de fechas dado
+ *  Retorna todos los dispositivos para un rango de fechas dado 
+ *  o bien para el dispositivo indicado en el parámetro req.deviceName
  * @param {*} req  Objeto Request 
  * @param {*} res  Objeto Response
  * @returns {object} json con los datos solicitados
  */
 function getStatByDataRange(req, res) {
-    console.log("consulta de fecha sobre dispositivos");
-    //el formato de la fecha debe de ser del tipo "2012-04-23T18:25:43.511Z"
-    console.log(req.startDate);
-    console.log(req.endDate);
-    req.startDate = "5b9900e3f7f90d14bf95b16b";
-    req.endDate = "5b9900ebf7f90d14bf95b173";
-    req.deviceName = ""
-    Stats.find({ _id: { $gte: mongoose.Types.ObjectId(req.startDate), $lte: mongoose.Types.ObjectId(req.endDate) } }, (err, devicedata) => {
-        if (err) { return res.status(500).send({ message: err }) }
-        if (!devicedata) { return res.status(404).send({ message: "NO hay datos para este dispositivo" }) }
-        return res.status(200).send({ devicedata })
-    });
+    // si req.deviceName es vacio, retorna todos los dispositivos
+    if (Object.keys(req.deviceName).length === 0) {
+        Stats.find({
+            _id: { $gte: mongoose.Types.ObjectId(req.startDate), $lte: mongoose.Types.ObjectId(req.endDate) }
+        }, (err, devicedata) => {
+            if (err) { return res.status(500).send({ message: err }) }
+            if (!devicedata) { return res.status(404).send({ message: "NO hay datos para este dispositivo" }) }
+            return res.status(200).send({ devicedata })
+        });
+        //en caso contrario retorna datos para el dispositivo indicado en el parametro sobre el rango de fechas asignado            
+    } else {
+        Stats.find({
+            _id: { $gte: mongoose.Types.ObjectId(req.startDate), $lte: mongoose.Types.ObjectId(req.endDate) },
+            device_name: req.deviceName
+        }, (err, devicedata) => {
+            if (err) { return res.status(500).send({ message: err }) }
+            if (!devicedata) { return res.status(404).send({ message: "NO hay datos para este dispositivo" }) }
+            return res.status(200).send({ devicedata })
+        });
+    }
 };
 
 /**
- * Retorna registros a partir de la fecha pasada como parametro.
+ * Retorna registros a partir de la fecha pasada como parametro en adelante,
+ * para todos los dispositivos o bien para el dispositivo que se envíe por parámetro.
  * 
  * @param {*} req Objeto Request
  * @param {*} res Objeto Response
@@ -79,11 +89,22 @@ function getStatByDataRange(req, res) {
  */
 function getStatFromDate(req, res) {
     console.log("consulta de todos los dispositivos");
-    Stats.find({ _id: { $gte: mongoose.Types.ObjectId(req.startDate) } }, (err, devicedata) => {
-        if (err) { return res.status(500).send({ message: err }) }
-        if (!devicedata) { return res.status(404).send({ message: "NO hay datos para este dispositivo" }) }
-        return res.status(200).send({ devicedata })
-    })
+    if (Object.keys(req.deviceName).length === 0) {
+        Stats.find({ _id: { $gte: mongoose.Types.ObjectId(req.startDate) } }, (err, devicedata) => {
+            if (err) { return res.status(500).send({ message: err }) }
+            if (!devicedata) { return res.status(404).send({ message: "NO hay datos para este dispositivo" }) }
+            return res.status(200).send({ devicedata })
+        });
+    } else {
+        Stats.find({
+            _id: { $gte: mongoose.Types.ObjectId(req.startDate) },
+            device_name: req.deviceName
+        }, (err, devicedata) => {
+            if (err) { return res.status(500).send({ message: err }) }
+            if (!devicedata) { return res.status(404).send({ message: "NO hay datos para este dispositivo" }) }
+            return res.status(200).send({ devicedata })
+        });
+    }
 };
 
 /**
@@ -95,24 +116,22 @@ function getStatFromDate(req, res) {
  */
 function getStatDeviceToday(req, res) {
     console.log("consulta el despositivo selecionado en la fecha de hoy");
-    let deviceName = req.deviceName;
-    let responseData ={}
-    Stats.find({ _id: { $gte: mongoose.Types.ObjectId(Util.todayToMongoId()) }, device_name: "frigorífico" }, (err, devicedata) => {
+
+    let responseData = {}
+    Stats.find({ _id: { $gte: mongoose.Types.ObjectId(Util.todayToMongoId()) }, device_name: req.deviceName }, (err, devicedata) => {
         if (err) { return res.status(500).send({ message: err }) }
         if (!devicedata) { return res.status(404).send({ message: "NO hay datos para este dispositivo" }) }
-        console.log("retorna los dispositivos");
         let arrDatos = [];
-       
+
         for (let i = 0; i < devicedata.length; i++) {
             const element = devicedata[i];
-           // arrDatos.push([element.id, element.val]);
+            console.log(element);
             arrDatos.push([Date.parse(Util.dateFromObjectId(element.id)), element.val]);
         }
         console.dir(arrDatos);
-        responseData.deviceName=req.deviceName;
-        responseData.arrDatos=arrDatos;
+        responseData.deviceName = req.deviceName;
+        responseData.arrDatos = arrDatos;
         return res.status(200).send(responseData);
-        //return res.status(200).send({ devicedata })
     })
 };
 

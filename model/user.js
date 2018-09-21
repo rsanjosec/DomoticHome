@@ -1,7 +1,10 @@
-'use strict'
 /**
- * Es
+ * @file Define el modelo del documento de usuarios que será representado sobre la base de datos MOngoDB 
+ *  
+ * @author Rubén San José Cruces 
  */
+
+'use strict'
 const mongoose = require('mongoose');
 const schema = mongoose.Schema;
 const bcrypt = require('bcrypt-nodejs')

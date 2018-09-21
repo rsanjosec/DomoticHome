@@ -1,9 +1,9 @@
-/**
- * Define un eschema de tipo device para una base de datos mongo
- */
-    
+ /**
+ * @file Define el modelo/esquema del documento de device que será representado sobre la base de datos MOngoDB 
+ *  
+ * @author Rubén San José Cruces 
+ */   
 'use strict'
-
 const mongoose = require('mongoose');
 const schema = mongoose.Schema;
 

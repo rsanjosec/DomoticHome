@@ -1,3 +1,10 @@
+/**
+ * @file Métodos para inserción borrado y actualización de usuarios 
+ *  
+ * @author Rubén San José Cruces 
+ */
+
+
 'use strict'
 const User = require('../model/user');
 const service = require('../services');
@@ -12,7 +19,6 @@ const Type = require('type-of-is');
  * @param {*} res 
  */
 function loginUser(req, res) {
-
     let usuario = req.body.mail;
     let pass = req.body.password;
     console.log("usuario" + usuario + " pass:" + pass)
@@ -26,8 +32,25 @@ function loginUser(req, res) {
     });
 };
 
+//para la autenticación del usuario
+// NOTE: se traspasa esta funcion con comportamiento similar a controllers/admon.js
+function login(req, res) {
+    User.find({ email: req.body.email }, (err, user) => {
+        if (err) { return res.status(500).send({ message: err }) }
+        if (!user) { return res.status(404).send({ message: "NO existe el usuario" }) }
+        req.user = user;
+        res.status(200).send({ message: "login correcto", token: service.createToken(user) })
+    })
+};
 
-function showAddUser(req, res, next) {
+/**
+ * Pinta la pantalla de añadir usuario
+ *
+ * @param {*} req
+ * @param {*} res
+ * 
+ */
+function showAddUser(req, res) {
     var baseUrl = req.baseUrl;
     console.log("--- baseUrl de showAddUser  (1) ----");
     console.log(req.originalUrl);   // return /admon/add-user
@@ -68,16 +91,7 @@ function addUser(req, res) {
     });
 
 };
-//para la autenticación del usuario
-// NOTE: se traspasa esta funcion con comportamiento similar a controllers/admon.js
-function login(req, res) {
-    User.find({ email: req.body.email }, (err, user) => {
-        if (err) { return res.status(500).send({ message: err }) }
-        if (!user) { return res.status(404).send({ message: "NO existe el usuario" }) }
-        req.user = user;
-        res.status(200).send({ message: "login correcto", token: service.createToken(user) })
-    })
-};
+
 
 /**
  * 
